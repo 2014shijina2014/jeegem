@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
+       default-lazy-init="true">
+
+    <!-- 数据源配置, 使用应用服务器的数据库连接池 -->
+    <!--<jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/${jndi.name}" />-->
+	<!-- 读取数据库配置文件 -->
+	<context:property-placeholder ignore-unresolvable="true" location="classpath*:/spring/config.properties" /> 
+
+	<!-- 配置数据源 -->
+	<bean name="mysqlDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+        <property name="driverClassName" value="${jdbc.mysql.driver}"/>
+		<property name="url" value="${jdbc.mysql.url}" />
+		<property name="username" value="${jdbc.mysql.username}" />
+		<property name="password" value="${jdbc.mysql.password}" />
+		<!-- 初始化连接数量 -->
+        <property name="initialSize" value="${druid.initialSize}" />
+        <!-- 最大并发连接数 -->
+        <property name="maxActive" value="${druid.maxActive}" />
+        <!-- 最大空闲连接数 -->
+      <!--   <property name="maxIdle" value="${druid.maxIdle}" /> -->
+        <!-- 最小空闲连接数 -->
+        <property name="minIdle" value="${druid.minIdle}" />
+        <!-- 配置获取连接等待超时的时间 -->     
+        <property name="maxWait" value="${druid.maxWait}" />
+        <!-- 超过时间限制是否回收 -->
+        <property name="removeAbandoned" value="${druid.removeAbandoned}" />
+        <!-- 超过时间限制多长； -->
+        <property name="removeAbandonedTimeout" value="${druid.removeAbandonedTimeout}" />
+        <!-- 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒 -->
+        <property name="timeBetweenEvictionRunsMillis" value="${druid.timeBetweenEvictionRunsMillis}" />
+        <!-- 配置一个连接在池中最小生存的时间，单位是毫秒 -->
+        <property name="minEvictableIdleTimeMillis" value="${druid.minEvictableIdleTimeMillis}" />
+        <!-- 用来检测连接是否有效的sql，要求是一个查询语句-->
+        <property name="validationQuery" value="${druid.validationQuery}" />
+        <!-- 申请连接的时候检测 -->
+        <property name="testWhileIdle" value="${druid.testWhileIdle}" />
+        <!-- 申请连接时执行validationQuery检测连接是否有效，配置为true会降低性能 -->
+        <property name="testOnBorrow" value="${druid.testOnBorrow}" />
+        <!-- 归还连接时执行validationQuery检测连接是否有效，配置为true会降低性能  -->
+        <property name="testOnReturn" value="${druid.testOnReturn}" />
+        <!-- 打开PSCache，并且指定每个连接上PSCache的大小 -->
+        <property name="poolPreparedStatements" value="${druid.poolPreparedStatements}" />     
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="${druid.maxPoolPreparedStatementPerConnectionSize}" />
+        <!--属性类型是字符串，通过别名的方式配置扩展插件，常用的插件有：                 
+                监控统计用的filter:stat
+                日志用的filter:log4j
+               防御SQL注入的filter:wall -->
+        <property name="filters" value="${druid.filters}" />     
+	</bean>
+
+    <!-- MyBatis配置 -->
+    <bean id="mysqlSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="mysqlDataSource" />
+        <!-- 自动扫描entity目录, 省掉xml里的手工配置 -->
+        <property name="typeAliasesPackage" value="com.gem.entity" />
+        <!-- 显式指定Mapper文件位置  -->
+        <property name="mapperLocations">
+            <list>
+                <value>classpath:/mybatis/**/**/*Mapper.xml</value>
+            </list>
+        </property>
+        <property name="plugins"><array><ref bean="pagePlugin" /></array></property>
+    </bean>
+    <!-- 分页配置-->
+    <bean id="pagePlugin" class="com.gem.common.mybatis.PageInterceptor">
+		<property name="properties">
+			<props>
+				<prop key="databaseType">mysql</prop>
+			</props>
+		</property>
+	</bean>
+    <!-- 分页配置end-->
+    <!-- 扫描basePackage下所有以@MyBatisRepository标识的 接口-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="mysqlSqlSessionFactory"/>
+        <property name="basePackage" value="com.gem.repository" />
+        <!-- 优化速度-->
+        <property name="annotationClass" value="com.gem.repository.base.GemBatis"/>
+    </bean>
+	<!-- 配置事务管理器 -->
+	<bean id="mysqlTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="mysqlDataSource" />
+	</bean>
+	<!--  拦截器方式配置事务 -->
+	<tx:advice id="mysqlTransactionAdvice" transaction-manager="mysqlTransactionManager">
+		<tx:attributes>
+			<tx:method name="save*" propagation="REQUIRED" />
+			<tx:method name="insert*" propagation="REQUIRED" />
+			<tx:method name="delete*" propagation="REQUIRED" />
+            <tx:method name="update*" propagation="REQUIRED" />
+			<tx:method name="find*" propagation="SUPPORTS" />
+			<tx:method name="*" propagation="SUPPORTS" />
+		</tx:attributes>
+	</tx:advice>
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="mysqlTransactionPointcut" expression="execution(* com.gem.service.*.*(..))" />
+		<aop:advisor pointcut-ref="mysqlTransactionPointcut" advice-ref="mysqlTransactionAdvice" />
+	</aop:config>
+	<tx:annotation-driven transaction-manager="mysqlTransactionManager" proxy-target-class="true" />
+</beans>
