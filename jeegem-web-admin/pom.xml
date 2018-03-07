@@ -1,20 +1,30 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <modelVersion>4.0.0</modelVersion>
-  <parent>
-    <groupId>jeegem</groupId>
-    <artifactId>jeegem</artifactId>
-    <version>v11.0.2</version>
-  </parent>
-  <groupId>jeegem-web-admin</groupId>
-  <artifactId>jeegem-web-admin</artifactId>
-  <packaging>war</packaging>
-  <name>jeegem-web-admin Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-  
-  <build>
-    <finalName>jeegem-web-admin</finalName>
- 
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>jeegem</groupId>
+		<artifactId>jeegem</artifactId>
+		<version>v11.0.2</version>
+	</parent>
+	<groupId>jeegem-web-admin</groupId>
+	<artifactId>jeegem-web-admin</artifactId>
+	<packaging>war</packaging>
+	<name>jeegem-web-admin Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<finalName>jeegem-web-admin</finalName>
+
 	</build>
 </project>

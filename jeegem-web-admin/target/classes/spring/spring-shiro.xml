@@ -8,9 +8,9 @@
 
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
 		<property name="realm" ref="ShiroRealm" />
-		<property name="sessionManager" ref="sessionManager"/>
+		<!-- <property name="sessionManager" ref="sessionManager"/> -->
 		<!-- 使用下面配置的缓存管理器 -->
-		<property name="cacheManager" ref="customCacheManager" />
+		<property name="cacheManager" ref="redisCacheManager" />
 	</bean>
 
 	<!-- 項目自定义的Realm -->
@@ -35,7 +35,7 @@
 	</bean>
 
 	<!--自定义的缓存管理器 -->
-	<bean id="customCacheManager" class="com.gem.interceptor.shiro.cache.CustomCacheManager" >
+	<bean id="redisCacheManager" class="com.gem.interceptor.shiro.cache.CustomCacheManager" >
 		<property name="redisCache" ref="redisCache" />
 	</bean>
 	

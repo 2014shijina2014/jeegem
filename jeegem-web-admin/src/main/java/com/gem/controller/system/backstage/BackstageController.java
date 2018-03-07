@@ -68,7 +68,7 @@ public class BackstageController extends BaseController<Object>{
 			}
 			if(menus!=null){
 				//将对象处理成树
-				String html=MenuTreeUtil.buildTreeHtml(menus);			
+				String html=MenuTreeUtil.buildTreeHtml(menus);
 				ar.setSucceed(html);
 			}
 		} catch (Exception e) {

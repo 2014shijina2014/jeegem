@@ -113,7 +113,7 @@
 	<!-- 菜单树-->
     <select id="findMenuTree"  resultMap="base" parameterType="String">    		
 		SELECT  jbm.id,jbm.name,jbm.parentId,jbm.type,jbm.resUrl,jbm.icon,jbm.sort,jbm.isValid
-		FROM gem_BASE_RESOURCES jbm
+		FROM GEM_BASE_RESOURCES jbm
 		RIGHT JOIN(select jbrm.* from gem_BASE_ROLE jbr,gem_BASE_ROLE_RESOURCES jbrm WHERE jbr.id=jbrm.role_id AND jbr.isValid=1) t
 		ON t.resources_id=jbm.id 
 		AND t.role_id IN(SELECT jba.roleId FROM gem_BASE_ACCOUNT jba WHERE  jba.isValid=1 AND jba.id=#{userId})

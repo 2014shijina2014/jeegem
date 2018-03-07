@@ -36,7 +36,7 @@
 				<a href="#" class="navbar-brand">
 					<small>
 						<i class="icon-leaf"></i>
-						GemSystem-Platform
+						JeeGem-Platform
 					</small>
 				</a><!-- /.brand -->
 			</div><!-- /.navbar-header -->

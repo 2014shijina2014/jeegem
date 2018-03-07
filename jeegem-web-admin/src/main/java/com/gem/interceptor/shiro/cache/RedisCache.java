@@ -39,42 +39,23 @@ import redis.clients.jedis.JedisPool;
  * 
  * @version JeeGem V3.0
  */
+@SuppressWarnings({"unchecked","rawtypes"})
 public class RedisCache<K, V> implements Cache<K, V> {
 	private JedisPool jedisPool;
 	
 	public void setJedisPool(JedisPool jedisPool) {
 		this.jedisPool = jedisPool;
 	}
-
-	public String getKeyPrefix() {
-		return keyPrefix;
-	}
-
-	public void setKeyPrefix(String keyPrefix) {
-		this.keyPrefix = keyPrefix;
-	}
-
-	private String keyPrefix = "shiro_redis_session:";
-
-	/**
-	 * 获得byte[]型的key
-	 * 
-	 * @param key
-	 * @return
-	 */
-	private byte[] getByteKey(Object key) {
-		if (key instanceof String) {
-			String preKey = this.keyPrefix + key;
-			return preKey.getBytes();
-		} else {
-			return SerializeUtil.serialize((Serializable) key);
-		}
+	
+	
+	public JedisPool getJedisPool() {
+		return jedisPool;
 	}
 
 	@Override
 	public Object get(Object key) throws CacheException {
 
-		byte[] bytes = getByteKey(key);
+		byte[] bytes = SerializeUtil.serialize(key);
 		byte[] value = jedisPool.getResource().get(bytes);
 		if (value == null) {
 			return null;
@@ -90,8 +71,8 @@ public class RedisCache<K, V> implements Cache<K, V> {
 
 		Jedis jedis = jedisPool.getResource();
 
-		jedis.set(getByteKey(key), SerializeUtil.serialize((Serializable) value));
-		byte[] bytes = jedis.get(getByteKey(key));
+		jedis.set(SerializeUtil.serialize(key), SerializeUtil.serialize(value));
+		byte[] bytes = jedis.get(SerializeUtil.serialize(key));
 		Object object = SerializeUtil.deserialize(bytes);
 
 		return object;
@@ -102,9 +83,9 @@ public class RedisCache<K, V> implements Cache<K, V> {
 	public Object remove(Object key) throws CacheException {
 		Jedis jedis = jedisPool.getResource();
 
-		byte[] bytes = jedis.get(getByteKey(key));
+		byte[] bytes = jedis.get(SerializeUtil.serialize(key));
 
-		jedis.del(getByteKey(key));
+		jedis.del(SerializeUtil.serialize(key));
 
 		return SerializeUtil.deserialize(bytes);
 	}
@@ -145,10 +126,9 @@ public class RedisCache<K, V> implements Cache<K, V> {
 	@Override
 	public Collection values() {
 		Set keys = this.keys();
-
 		List<Object> values = new ArrayList<Object>();
 		for (Object key : keys) {
-			byte[] bytes = jedisPool.getResource().get(getByteKey(key));
+			byte[] bytes = jedisPool.getResource().get(SerializeUtil.serialize(key));
 			values.add(SerializeUtil.deserialize(bytes));
 		}
 		return values;
