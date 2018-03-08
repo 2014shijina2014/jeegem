@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gem.repository.task.base.ScheduleJobDao">
-	<!-- com.gem.entity.task.base.ScheduleJob  -->
+<mapper namespace="com.jeegem.repository.task.base.ScheduleJobDao">
+	<!-- com.jeegem.entity.task.base.ScheduleJob  -->
  	<resultMap id="base" type="ScheduleJob" ></resultMap>
  	<select id="find"  resultMap="base" parameterType="ScheduleJob">
        SELECT t.scheduleJobId,t.jobName,t.aliasName,t.jobGroup,t.jobClass,t.status,t.cronExpression,
-       		  t.description,t.createTime,t.updateTime FROM gem_TASK_SCHEDULE t WHERE 1=1 
+       		  t.description,t.createTime,t.updateTime FROM jeegem_TASK_SCHEDULE t WHERE 1=1 
        <if test="scheduleJobId != null and scheduleJobId!='' ">
         	AND t.scheduleJobId=#{scheduleJobId}
        </if>
@@ -15,7 +15,7 @@
     </select> 
  	<select id="findByPage"  resultMap="base" parameterType="ScheduleJob">
        SELECT t.scheduleJobId,t.jobName,t.aliasName,t.jobGroup,t.jobClass,t.status,t.cronExpression,
-       		  t.description,t.createTime,t.updateTime FROM gem_TASK_SCHEDULE t WHERE 1=1 
+       		  t.description,t.createTime,t.updateTime FROM jeegem_TASK_SCHEDULE t WHERE 1=1 
         <if test="param.scheduleJobId!= null and param.scheduleJobId!='' ">
         	AND t.scheduleJobId=#{param.scheduleJobId}
        </if>
@@ -33,11 +33,11 @@
        order by t.createTime desc
     </select>  
     <select id="count"  resultType="int" parameterType="ScheduleJob">
-       SELECT count(*) FROM gem_TASK_SCHEDULE t
+       SELECT count(*) FROM jeegem_TASK_SCHEDULE t
     </select>        
  	<insert id="insert"  parameterType="ScheduleJob">	
  	<![CDATA[
-	INSERT INTO gem_TASK_SCHEDULE(
+	INSERT INTO jeegem_TASK_SCHEDULE(
 	scheduleJobId,
 	jobName,
 	aliasName,
@@ -61,11 +61,11 @@
 	]]>  
 	</insert>
 	<delete id="delete" parameterType="ScheduleJob">
-	DELETE FROM gem_TASK_SCHEDULE  WHERE 1=1 
+	DELETE FROM jeegem_TASK_SCHEDULE  WHERE 1=1 
 	AND scheduleJobId=#{scheduleJobId} 
 	</delete>
 	<delete id="deleteBatch" parameterType="java.util.List">
-	DELETE FROM gem_TASK_SCHEDULE 
+	DELETE FROM jeegem_TASK_SCHEDULE 
 	WHERE scheduleJobId IN(
 		<foreach item="o" collection="list" open="" separator="," close="" >
 			#{o.scheduleJobId}
@@ -73,7 +73,7 @@
 		)
 	</delete>
 	<update id="update" parameterType="ScheduleJob">
-		UPDATE gem_TASK_SCHEDULE 
+		UPDATE jeegem_TASK_SCHEDULE 
 		SET jobName=#{jobName},
 			aliasName=#{aliasName},
 			jobGroup=#{jobGroup},
@@ -88,7 +88,7 @@
 	
 	<select id="getScheduleJobById"  resultMap="base" parameterType="String">
        SELECT t.scheduleJobId,t.jobName,t.aliasName,t.jobGroup,t.jobClass,t.status,t.cronExpression,
-       		  t.description,t.createTime,t.updateTime FROM gem_TASK_SCHEDULE t 
+       		  t.description,t.createTime,t.updateTime FROM jeegem_TASK_SCHEDULE t 
        WHERE t.scheduleJobId=#{scheduleJobId}
     </select> 
 </mapper>

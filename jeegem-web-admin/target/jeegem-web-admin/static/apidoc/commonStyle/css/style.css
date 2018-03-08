@@ -1,0 +1,8 @@
+pre {background-color: #f6f6f6;color: #333;display: block;font-size: 12px;overflow-y: auto;padding: 0.3em;border: 1px solid rgba(0, 0, 0, 0.15);border-radius: 4px;line-height: 1.5em;margin: 0 0 0.75em;white-space: pre-wrap;word-break: break-all;word-wrap: break-word;color: #333;font-family: Monaco,Menlo,Consolas,"Courier New",monospace;}
+pre .tag, pre .tag .title, pre .rules .property, pre .django .tag .keyword {color: #000080;font-weight: normal;}
+pre .title, pre .id {color: #900;font-weight: bold;}
+pre .attribute, pre .variable, pre .lisp .body {color: #008080;}
+pre .string, pre .tag .value, pre .phpdoc, pre .tex .formula {color: #d14;}
+table.imagetable {font-family: verdana,arial,sans-serif;font-size:11px;color:#333333;border-width: 1px;border-color: #999999;border-collapse: collapse;}
+table.imagetable th {background:#b5cfd2 url('../images/cell-blue.jpg');border-width: 1px;padding: 8px;border-style: solid;border-color: #999999;}
+table.imagetable td {background:#dcddc0 url('../images/cell-grey.jpg');border-width: 1px;padding: 8px;border-style: solid;border-color: #999999;}

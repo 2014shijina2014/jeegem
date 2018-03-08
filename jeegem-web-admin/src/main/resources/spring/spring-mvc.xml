@@ -14,7 +14,7 @@
   	<!-- 自动扫描且只扫描@Controller -->
     <context:component-scan base-package="com" use-default-filters="false">
         <!-- 平台的controller，可以写多个 -->
-        <context:include-filter type="aspectj" expression="com.gem.controller..*Controller"/>
+        <context:include-filter type="aspectj" expression="com.jeegem.controller..*Controller"/>
     </context:component-scan>
     
     <!-- 对静态资源文件的访问  restful-->     

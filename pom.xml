@@ -10,6 +10,8 @@
 	<description>jeegem</description>
 	<modules>
 		<module>jeegem-web-admin</module>
+		<module>jeegem-core</module>
+		<module>jeegem-service</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -547,6 +549,16 @@
 			<version>1.6.2.RELEASE</version>
 		</dependency>
 		<!-- redis end -->
+
+
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<version>2.5</version>
+			<scope>provided</scope>
+		</dependency>
+
+
 	</dependencies>
 
 	<!--配置除中央仓库以外的个别仓库 -->
@@ -572,6 +584,7 @@
 					<skipTests>true</skipTests>
 				</configuration>
 			</plugin>
+			
 		</plugins>
 		<resources>
 			<resource>

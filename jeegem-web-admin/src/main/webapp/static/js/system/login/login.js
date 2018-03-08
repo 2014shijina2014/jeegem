@@ -25,8 +25,9 @@ $(function () {
 			var loginname = $("#accountNameId").val();
 			var password = $("#passwordId").val();
 			var verifyCode=$("#verifyCodeId").val();
-			var code = loginname+",gem,"+$.md5(password)+",gem,"+verifyCode;
-			$.ajax({type:'POST',url:gempath +'/system_login',data:{KEYDATA:code,tm:new Date().getTime()},
+			var code = loginname+",jeegem,"+$.md5(password)+",jeegem,"+verifyCode;
+			console.log("jeegempath="+jeegempath)
+			$.ajax({type:'POST',url:jeegempath +'/system_login',data:{KEYDATA:code,tm:new Date().getTime()},
 		            dataType:'json',success:function(data, textStatus) {
 		            	dialogloadingClose();	            
 		            	var result=data.result;
@@ -35,7 +36,7 @@ $(function () {
 		            		clearLoginForm();//清除信息
 							loginAlert(result);		
 						}else{
-							window.location.href=gempath+"/backstage/index";
+							window.location.href=jeegempath+"/backstage/index";
 						}
 		            }
 		     });
@@ -110,8 +111,8 @@ function loginAlert(msg) {
 }
 
 function dialogerror(Str){
-	$("#gemErrorStr").empty().append(Str);
-	$("#gemError").removeClass('hide').dialog({
+	$("#jeegemErrorStr").empty().append(Str);
+	$("#jeegemError").removeClass('hide').dialog({
 		resizable: false,
 		dialogClass: "title-no-close",
 		modal: true,//设置为true，该dialog将会有遮罩层
@@ -128,8 +129,8 @@ function dialogerror(Str){
 	}); 
 };
 function dialogloading(){
-	$("#gemLoadingStr").empty().append("正在登录 , 请稍后 ...");
-	$("#gemLoading").removeClass('hide').dialog({
+	$("#jeegemLoadingStr").empty().append("正在登录 , 请稍后 ...");
+	$("#jeegemLoading").removeClass('hide').dialog({
 		dialogClass: "loading-no-close",
 		minHeight: 50,
 		resizable: false,
@@ -138,5 +139,5 @@ function dialogloading(){
 	});
 };
 function dialogloadingClose(){
-	$("#gemLoading").dialog("close");
+	$("#jeegemLoading").dialog("close");
 };

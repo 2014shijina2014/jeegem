@@ -14,15 +14,8 @@
 	</bean>
 
 	<!-- 項目自定义的Realm -->
-	<bean id="ShiroRealm" class="com.gem.interceptor.shiro.ShiroRealm">
-		<!--启用缓存，默认关闭 -->
-		<property name="cachingEnabled" value="true" />
-		<!--启用身份验证缓存，即缓存AuthenticationInfo，默认false -->
-		<property name="authenticationCachingEnabled" value="true" />
-		<!--启用授权缓存，即缓存AuthorizationInfo的信息，默认为false -->
-		<property name="authorizationCachingEnabled" value="true" />
-	</bean>
-
+	<bean id="ShiroRealm" class="com.jeegem.interceptor.shiro.ShiroRealm" />
+				
 	<!--会话管理器 -->
 	<bean id="sessionManager"
 		class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
@@ -35,11 +28,11 @@
 	</bean>
 
 	<!--自定义的缓存管理器 -->
-	<bean id="redisCacheManager" class="com.gem.interceptor.shiro.cache.CustomCacheManager" >
+	<bean id="redisCacheManager" class="com.jeegem.interceptor.shiro.cache.CustomCacheManager" >
 		<property name="redisCache" ref="redisCache" />
 	</bean>
 	
-	<bean id="redisCache" class="com.gem.interceptor.shiro.cache.RedisCache" >
+	<bean id="redisCache" class="com.jeegem.interceptor.shiro.cache.RedisCache" >
 		<property name="jedisPool" ref="jedisPool" />
 	</bean>
 	

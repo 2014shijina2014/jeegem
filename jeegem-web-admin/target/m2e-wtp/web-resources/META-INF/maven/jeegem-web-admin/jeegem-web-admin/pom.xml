@@ -21,6 +21,33 @@
 			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>com.swetake</groupId>
+			<artifactId>QRcode</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/QRcode.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>ueditor</groupId>
+			<artifactId>ueditor</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/ueditor-1.1.2.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>jeegem</groupId>
+			<artifactId>jeegem-core</artifactId>
+			<version>v11.0.2</version>
+		</dependency>
+		<dependency>
+			<groupId>jeegem-service</groupId>
+			<artifactId>jeegem-service</artifactId>
+			<version>v11.0.2</version>
+		</dependency>
 	</dependencies>
 
 	<build>

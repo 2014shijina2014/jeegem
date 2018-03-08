@@ -4,6 +4,12 @@
         <wb-resource deploy-path="/" source-path="/src/main/webapp" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/java"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src/main/resources"/>
+        <dependent-module archiveName="jeegem-core-v11.0.2.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/jeegem-core/jeegem-core">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="jeegem-service-v11.0.2.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/jeegem-service/jeegem-service">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
         <property name="context-root" value="jeegem-web-admin"/>
         <property name="java-output-path" value="/jeegem-web-admin/target/classes"/>
     </wb-module>

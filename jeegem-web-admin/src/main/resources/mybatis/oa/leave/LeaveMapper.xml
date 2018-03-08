@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gem.repository.oa.leave.LeaveDao">
-	<!-- com.gem.entity.oa.leave.Leave  -->
+<mapper namespace="com.jeegem.repository.oa.leave.LeaveDao">
+	<!-- com.jeegem.entity.oa.leave.Leave  -->
  	<resultMap id="base" type="OaLeave" ></resultMap>
  	<select id="find"  resultMap="base" parameterType="OaLeave">
        SELECT t.* FROM OA_LEAVE t WHERE 1=1 
@@ -79,7 +79,7 @@
 	</update>	
 	<select id="findLeaveByPId"  resultMap="base" parameterType="OaLeave">
        SELECT t.*,jddi.name as typeName FROM OA_LEAVE t 
-       LEFT JOIN gem_DATA_DICT_ITEM jddi
+       LEFT JOIN jeegem_DATA_DICT_ITEM jddi
        ON t.type=jddi.value
        WHERE t.pId=#{pId}
     </select>    

@@ -1,0 +1,183 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>jQuery UI</title>
+	<!-- The Main CSS File -->
+	<link rel="stylesheet" href="css/style.css" />
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/jquery-ui-1.8.21.min.js"></script>
+	<script src="js/main.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<body>
+	<div class="copyrights"></div>
+	<header class="main_header">
+		<div class="wrapper">
+			<div class="logo">
+				<img src="Images/jqueryUI_logo.png" />
+			</div>
+		</div>
+	</header>
+
+	<div class="wrapper small_menu">
+		<ul id="smalltabul" class="menu_small_buttons"></ul>
+	</div>
+	<div class="wrapper contents_wrapper">	
+		<aside class="sidebar">
+			<ul id="tabul" class="tab_nav"></ul>
+		</aside>
+		<div class="contents">
+			<div class="grid_wrapper">
+			<div class="g_12">
+				<div class="para">
+				<pre>
+所有需要"Date" 的选项都可以处理Date 对象; a String formatted according to the given format; or a timedelta relative to today, eg '-1d', '+6m +1y', etc, where valid units are 'd' (day), 'w' (week), 'm' (month), and 'y' (year).
+
+你也可以指定一个符合 ISO-8601 格式的日期时间，就可以忽略下面的格式：
+yyyy-mm-dd
+yyyy-mm-dd hh:ii
+yyyy-mm-ddThh:ii
+yyyy-mm-dd hh:ii:ss
+yyyy-mm-ddThh:ii:ssZ
+format
+String. 默认值: 'mm/dd/yyyy'
+
+日期格式， p, P, h, hh, i, ii, s, ss, d, dd, m, mm, M, MM, yy, yyyy 的任意组合。
+p : meridian in lower case ('am' or 'pm') - according to locale file
+P : meridian in upper case ('AM' or 'PM') - according to locale file
+s : seconds without leading zeros
+ss : seconds, 2 digits with leading zeros
+i : minutes without leading zeros
+ii : minutes, 2 digits with leading zeros
+h : hour without leading zeros - 24-hour format
+hh : hour, 2 digits with leading zeros - 24-hour format
+H : hour without leading zeros - 12-hour format
+HH : hour, 2 digits with leading zeros - 12-hour format
+d : day of the month without leading zeros
+dd : day of the month, 2 digits with leading zeros
+m : numeric representation of month without leading zeros
+mm : numeric representation of the month, 2 digits with leading zeros
+M : short textual representation of a month, three letters
+MM : full textual representation of a month, such as January or March
+yy : two digit representation of a year
+yyyy : full numeric representation of a year, 4 digits
+weekStart
+Integer. 默认值：0
+
+一周从哪一天开始。0（星期日）到6（星期六）
+
+startDate
+Date. 默认值：开始时间
+
+The earliest date that may be selected; all earlier dates will be disabled.
+
+endDate
+Date. 默认值：结束时间
+
+The latest date that may be selected; all later dates will be disabled.
+
+daysOfWeekDisabled
+String, Array. 默认值: '', []
+
+Days of the week that should be disabled. Values are 0 (Sunday) to 6 (Saturday). Multiple values should be comma-separated. Example: disable weekends: '0,6' or [0,6].
+
+autoclose
+Boolean. 默认值：false
+
+当选择一个日期之后是否立即关闭此日期时间选择器。
+
+startView
+Number, String. 默认值：2, 'month'
+
+日期时间选择器打开之后首先显示的视图。 可接受的值：
+
+0 or 'hour' for the hour view
+1 or 'day' for the day view
+2 or 'month' for month view (the default)
+3 or 'year' for the 12-month overview
+4 or 'decade' for the 10-year overview. Useful for date-of-birth datetimepickers.
+minView
+Number, String. 默认值：0, 'hour'
+
+日期时间选择器所能够提供的最精确的时间选择视图。
+
+maxView
+Number, String. 默认值：4, 'decade'
+
+日期时间选择器最高能展示的选择范围视图。
+
+todayBtn
+Boolean, "linked". 默认值: false
+
+如果此值为true 或 "linked"，则在日期时间选择器组件的底部显示一个 "Today" 按钮用以选择当前日期。如果是true的话，"Today" 按钮仅仅将视图转到当天的日期，如果是"linked"，当天日期将会被选中。
+
+todayHighlight
+Boolean. 默认值: false
+
+如果为true, 高亮当前日期。
+
+keyboardNavigation
+Boolean. 默认值: true
+
+是否允许通过方向键改变日期。
+
+language
+String. 默认值: 'en'
+
+The two-letter code of the language to use for month and day names. These will also be used as the input's value (and subsequently sent to the server in the case of form submissions). Currently ships with English ('en'), German ('de'), Brazilian ('br'), and Spanish ('es') translations, but others can be added (see I18N below). If an unknown language code is given, English will be used.
+
+forceParse
+Boolean. 默认值: true
+
+当选择器关闭的时候，是否强制解析输入框中的值。也就是说，当用户在输入框中输入了不正确的日期，选择器将会尽量解析输入的值，并将解析后的正确值按照给定的格式format设置到输入框中。
+
+minuteStep
+Number. 默认值: 5
+
+此数值被当做步进值用于构建小时视图。对于每个 minuteStep 都会生成一组预设时间（分钟）用于选择。
+
+pickerReferer : 不建议使用
+String. 默认值: 'default' (other value available : 'input')
+
+The referer element to place the picker for the component implementation. If you want to place the picker just under the input field, just specify input.
+
+pickerPosition
+String. 默认值: 'bottom-right' (还支持 : 'bottom-left')
+
+此选项当前只在组件实现中提供支持。通过设置选项可以讲选择器放倒输入框下方。
+
+viewSelect
+Number or String. 默认值: same as minView (supported values are: 'decade', 'year', 'month', 'day', 'hour')
+
+With this option you can select the view from which the date will be selected. By default it's the last one, however you can choose the first one, so at each click the date will be updated.
+
+showMeridian
+Boolean. 默认值: false
+
+This option will enable meridian views for day and hour views.
+
+initialDate
+Date or String. 默认值: new Date()
+
+You can initialize the viewer with a date. By default it's now, so you can specify yesterday or today at midnight ...
+</pre>				
+				</div>
+			</div>
+
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="wrapper">
+			<span class="copyright"></span>
+		</div>
+	</footer>
+	<script type="text/javascript">
+	$(function () {
+		$("#tabul .jq_datepicker").addClass("active_tab"); 
+		$("#smalltabul .jq_datepicker").addClass("smActive"); 
+	});
+	</script>
+</body>
+</html>

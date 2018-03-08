@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gem.repository.system.dict.DataDictDao">
-	<!-- com.gem.entity.system.dict.DataDict  -->
-	<!-- com.gem.entity.system.dict.DataDictItem  -->
+<mapper namespace="com.jeegem.repository.system.dict.DataDictDao">
+	<!-- com.jeegem.entity.system.dict.DataDict  -->
+	<!-- com.jeegem.entity.system.dict.DataDictItem  -->
  	<resultMap id="base" type="DataDict" >
  	 <collection property="items" column="dictId" ofType="DataDictItem" select="getItem"/> 
  	</resultMap>
  	<resultMap id="baseItem" type="DataDictItem" ></resultMap>
  	<select id="find"  resultMap="base" parameterType="DataDict">
-       SELECT t.*,t.id as dictId FROM gem_DATA_DICT t WHERE  
+       SELECT t.*,t.id as dictId FROM jeegem_DATA_DICT t WHERE  
        t.id=#{id}
        <if test="dataKey != null and dataKey!='' ">
        AND t.dataKey=#{dataKey}
        </if>
     </select> 
     <select id="getItem"  resultMap="baseItem" parameterType="DataDictItem">
-       SELECT t.* FROM gem_data_dict_item t WHERE  
+       SELECT t.* FROM jeegem_data_dict_item t WHERE  
        t.dictId=#{dictId}
        ORDER BY t.sort
     </select> 
  	<select id="findByPage"  resultMap="base" parameterType="DataDict">
-       SELECT t.* FROM gem_DATA_DICT t WHERE 1=1 
+       SELECT t.* FROM jeegem_DATA_DICT t WHERE 1=1 
        <if test="param.isValid!= null">
         AND t.isValid=#{param.isValid}
        </if>
@@ -34,14 +34,14 @@
         ORDER BY t.createTime desc
     </select>  
     <select id="count"  resultType="int" parameterType="DataDict">
-       SELECT count(*) FROM gem_data_dict t WHERE 1=1 
+       SELECT count(*) FROM jeegem_data_dict t WHERE 1=1 
        <if test="dataKey!= null and dataKey!=''">
        	and t.dataKey=#{dataKey} 
        </if>
     </select>        
  	<insert id="insert"  parameterType="DataDict">	
  	<![CDATA[
-	INSERT INTO gem_DATA_DICT(
+	INSERT INTO jeegem_DATA_DICT(
 	id,dataKey,name,isValid,description,createTime
 	) VALUES (
 	#{id},#{dataKey},#{name},#{isValid},#{description},#{createTime}
@@ -49,7 +49,7 @@
 	]]>  
 	</insert>
 	<insert id="insertItems" parameterType="java.util.List">	
-		INSERT INTO gem_DATA_DICT_ITEM
+		INSERT INTO jeegem_DATA_DICT_ITEM
 		(dictId,value,name,sort) 
 		VALUES 
 		<foreach item="o" collection="list"  separator="," >
@@ -57,11 +57,11 @@
 		</foreach>
 	</insert>
 	<delete id="deleteItems" parameterType="DataDict">
-	DELETE FROM gem_DATA_DICT_ITEM  
+	DELETE FROM jeegem_DATA_DICT_ITEM  
 	WHERE dictId=#{dictId}
 	</delete>
 	<delete id="deleteBatchItems" parameterType="java.util.List">
-	DELETE FROM gem_DATA_DICT_ITEM 
+	DELETE FROM jeegem_DATA_DICT_ITEM 
 	WHERE dictId IN(
 		<foreach item="o" collection="list" open="" separator="," close="" >
 			#{o.id}
@@ -69,11 +69,11 @@
 		)
 	</delete>
 	<delete id="delete" parameterType="DataDict">
-	DELETE FROM gem_DATA_DICT  
+	DELETE FROM jeegem_DATA_DICT  
 	WHERE id=#{id}
 	</delete>	
 	<delete id="deleteBatch" parameterType ="java.util.List">
-	DELETE FROM gem_DATA_DICT  
+	DELETE FROM jeegem_DATA_DICT  
 	WHERE id IN(
 		<foreach item="o" collection="list" open="" separator="," close="" >
 			#{o.id}
@@ -81,7 +81,7 @@
 		)
 	</delete>
 	<update id="update" parameterType="DataDict">
-		UPDATE gem_DATA_DICT 
+		UPDATE jeegem_DATA_DICT 
 		SET name=#{name},
 			isValid =#{isValid},
 			description=#{description},
@@ -89,7 +89,7 @@
 		WHERE id=#{id}
 	</update>
  	<select id="findDatas"  resultMap="base" parameterType="DataDict">
- 	SELECT jdd.dataKey,jdd.name,jdd.id as dictId FROM gem_DATA_DICT jdd
+ 	SELECT jdd.dataKey,jdd.name,jdd.id as dictId FROM jeegem_DATA_DICT jdd
 	WHERE jdd.isValid=1 
 	AND jdd.dataKey IN(
 	<foreach item="key" collection="keys" open="" separator="," close="" >

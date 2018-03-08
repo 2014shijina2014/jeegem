@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.gem.repository.system.dict.SysDictDao">
-	<!-- com.gem.entity.system.dict.SysDict  -->
+<mapper namespace="com.jeegem.repository.system.dict.SysDictDao">
+	<!-- com.jeegem.entity.system.dict.SysDict  -->
  	<resultMap id="base" type="SysDict" ></resultMap>
  	<select id="find"  resultMap="base" parameterType="SysDict">
-       SELECT t.* FROM gem_SYS_DICT t WHERE 1=1 
+       SELECT t.* FROM jeegem_SYS_DICT t WHERE 1=1 
        <if test="id != null and id!='' ">
         	AND t.id=#{id}
        </if>
@@ -13,7 +13,7 @@
        </if>
     </select> 
  	<select id="findByPage"  resultMap="base" parameterType="SysDict">
-       SELECT t.* FROM gem_SYS_DICT t WHERE 1=1 
+       SELECT t.* FROM jeegem_SYS_DICT t WHERE 1=1 
         <if test="param.id!= null and param.id!='' ">
         	AND t.id=#{param.id}
        </if>
@@ -30,11 +30,11 @@
        order by t.createTime desc
     </select>  
     <select id="count"  resultType="int" parameterType="SysDict">
-       SELECT count(*) FROM gem_sys_dict t WHERE 1=1 
+       SELECT count(*) FROM jeegem_sys_dict t WHERE 1=1 
     </select>        
  	<insert id="insert"  parameterType="SysDict">	
  	<![CDATA[
-	INSERT INTO gem_SYS_DICT(
+	INSERT INTO jeegem_SYS_DICT(
 	id,
 	paramKey,
 	paramName,
@@ -54,11 +54,11 @@
 	]]>  
 	</insert>
 	<delete id="delete" parameterType="SysDict">
-	DELETE FROM gem_SYS_DICT  WHERE 1=1 
+	DELETE FROM jeegem_SYS_DICT  WHERE 1=1 
 	AND id=#{id} 
 	</delete>
 	<delete id="deleteBatch" parameterType="java.util.List">
-	DELETE FROM gem_SYS_DICT 
+	DELETE FROM jeegem_SYS_DICT 
 	WHERE id IN(
 		<foreach item="o" collection="list" open="" separator="," close="" >
 			#{o.id}
@@ -66,7 +66,7 @@
 		)
 	</delete>
 	<update id="update" parameterType="SysDict">
-		UPDATE gem_SYS_DICT 
+		UPDATE jeegem_SYS_DICT 
 		SET 
 			paramKey  =#{paramKey} ,
 			paramName =#{paramName},

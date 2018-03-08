@@ -42,14 +42,14 @@
 	<!--自定义用户和组-->
 	<property name="customSessionFactories">
     	<list>
-    	     <bean class="com.gem.service.workflow.factory.GroupManagerFactory">
+    	     <bean class="com.jeegem.service.workflow.factory.GroupManagerFactory">
                     <property name="groupEntityManager" >
-                     	<bean class="com.gem.service.workflow.factory.GroupManager"/>
+                     	<bean class="com.jeegem.service.workflow.factory.GroupManager"/>
                     </property>
             </bean>
-        	<bean class="com.gem.service.workflow.factory.UserManagerFactory">
+        	<bean class="com.jeegem.service.workflow.factory.UserManagerFactory">
                     <property name="userEntityManager" >
-                   		 <bean class="com.gem.service.workflow.factory.UserManager"/>
+                   		 <bean class="com.jeegem.service.workflow.factory.UserManager"/>
                     </property>
             </bean>
          </list>

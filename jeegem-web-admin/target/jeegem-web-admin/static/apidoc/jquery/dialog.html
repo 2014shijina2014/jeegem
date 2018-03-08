@@ -1,0 +1,389 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title>jQuery UI</title>
+	<!-- The Main CSS File -->
+	<link rel="stylesheet" href="css/style.css" />
+	<script src="js/jquery-1.7.2.min.js"></script>
+	<script src="js/jquery-ui-1.8.21.min.js"></script>
+	<script src="js/main.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" /></head>
+<body>
+	<div class="copyrights"></div>
+	<header class="main_header">
+		<div class="wrapper">
+			<div class="logo">
+				<img src="Images/jqueryUI_logo.png" />
+			</div>
+		</div>
+	</header>
+
+	<div class="wrapper small_menu">
+		<ul id="smalltabul" class="menu_small_buttons"></ul>
+	</div>
+	<div class="wrapper contents_wrapper">	
+		<aside class="sidebar">
+			<ul id="tabul" class="tab_nav"></ul>
+		</aside>
+		<div class="contents">
+			<div class="grid_wrapper">
+				<div class="g_12">
+					<div class="para">
+						<table cellspacing="0" cellpadding="0" border="1"
+							style="WiDTH: 100%">
+							<tbody>
+								<tr>
+									<td>&nbsp;<wbr></wbr>参数
+									</td>
+									<td>&nbsp;<wbr></wbr>默认值
+									</td>
+									<td>&nbsp;<wbr></wbr>作用
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;<wbr></wbr>autoOpen
+									</td>
+									<td>&nbsp;<wbr></wbr>true
+									</td>
+									<td>
+										<p>
+											&nbsp;
+											<wbr></wbr>
+											是否自动打开dialog窗口。当属性为false的时候，一开始隐藏窗口，
+										</p>
+										<p>
+											&nbsp;
+											<wbr></wbr>
+											直到.dialog("open")的时候才弹出dialog窗口
+										</p>
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;<wbr></wbr>buttons
+									</td>
+									<td>&nbsp;<wbr></wbr>{}
+									</td>
+									<td>&nbsp;<wbr></wbr>显示一个按钮，并写上按钮的文本，设置按钮点击函数
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;<wbr></wbr>closeOnEscpe
+									</td>
+									<td>&nbsp;<wbr></wbr>true
+									</td>
+									<td>&nbsp;<wbr></wbr>是否点击键盘ESC键关闭dialog
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;<wbr></wbr>dialogClass
+									</td>
+									<td>&nbsp;<wbr></wbr>null
+									</td>
+									<td>&nbsp;<wbr></wbr>为窗口加上的class属性
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<p>
+											&nbsp;
+											<wbr></wbr>
+											diaggable
+										</p>
+										<p>
+											&nbsp;
+											<wbr></wbr>
+											resizable
+										</p>
+									</td>
+									<td>&nbsp;<wbr></wbr>true
+									</td>
+									<td>&nbsp;<wbr></wbr>是否能拖动、缩放 （必须加载相应的js）
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<p>
+											&nbsp;
+											<wbr></wbr>
+											width
+										</p>
+										<p>
+											&nbsp;
+											<wbr></wbr>
+											height
+										</p>
+									</td>
+									<td>&nbsp;<wbr></wbr>auto
+									</td>
+									<td>&nbsp;<wbr></wbr>窗口的长宽
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<p>
+											&nbsp;
+											<wbr></wbr>
+											maxWidth
+										</p>
+										<p>
+											&nbsp;
+											<wbr></wbr>
+											maxHeight
+										</p>
+									</td>
+									<td>
+										<p>
+											&nbsp;
+											<wbr></wbr>
+											null
+										</p>
+									</td>
+									<td>&nbsp;<wbr></wbr>长宽的最大值
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<p>
+											&nbsp;
+											<wbr></wbr>
+											minWidth
+										</p>
+										<p>
+											&nbsp;
+											<wbr></wbr>
+											minHeight
+										</p>
+									</td>
+									<td>
+										<p>
+											&nbsp;
+											<wbr></wbr>
+											150
+										</p>
+									</td>
+									<td>&nbsp;<wbr></wbr>长宽的最小值
+									</td>
+								</tr>
+								<tr>
+									<td>
+										<p>
+											&nbsp;
+											<wbr></wbr>
+											hide
+										</p>
+										<p>
+											&nbsp;
+											<wbr></wbr>
+											show
+										</p>
+									</td>
+									<td>&nbsp;<wbr></wbr>null
+									</td>
+									<td>
+										<p>
+											&nbsp;
+											<wbr></wbr>
+											当dialog关闭和打开时候的效果。（必须加载相应的jquery.effects.xx.js）
+										</p>
+										<p>
+											&nbsp;
+											<wbr></wbr>
+											效果有：blind,bounce,clip,drop,explode,fade,fold,
+										</p>
+										<p>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											highlight,pulsate,puff,slide,scale,size,shake,transfer
+										</p>
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;<wbr></wbr>modal
+									</td>
+									<td>&nbsp;<wbr></wbr>false
+									</td>
+									<td>&nbsp;<wbr></wbr>是否使用模式窗口，模式窗口打开后，页面其他元素将不能点击，直到关闭模式窗口
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;<wbr></wbr>title
+									</td>
+									<td>&nbsp;<wbr></wbr>null
+									</td>
+									<td>&nbsp;<wbr></wbr>dialog的标题文字
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;<wbr></wbr>position
+									</td>
+									<td>&nbsp;<wbr></wbr>center
+									</td>
+									<td>
+										<p>
+											&nbsp;
+											<wbr></wbr>
+											dialog的显示位置：可以是'center', 'left', 'right', 'top', 'bottom',
+										</p>
+										<p>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											也可以是top和left的偏移量,
+										</p>
+										<p>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											&nbsp;
+											<wbr></wbr>
+											也可以是一个字符串数组例如['right','top']。
+										</p>
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;<wbr></wbr>zIndex
+									</td>
+									<td>&nbsp;<wbr></wbr>1000
+									</td>
+									<td>&nbsp;<wbr></wbr>dialog的zindex值
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;<wbr></wbr>stack
+									</td>
+									<td>&nbsp;<wbr></wbr>true
+									</td>
+									<td>&nbsp;<wbr></wbr>是否在dialog获得焦点是，dialog将在最上面
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;<wbr></wbr>bgiframe
+									</td>
+									<td>&nbsp;<wbr></wbr>false
+									</td>
+									<td>&nbsp;<wbr></wbr>在IE6下，让后面那个灰屏盖住select(需要调用jquery.bgiframe.js)
+									</td>
+								</tr>
+								<tr>
+									<td>&nbsp;<wbr></wbr>disabled
+									</td>
+									<td>&nbsp;<wbr></wbr>false
+									</td>
+									<td>&nbsp;<wbr></wbr>当为true是，关掉这个dialog
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<!-- <div class="g_12">
+					<div class="widget_header">
+						<h4 class="widget_header_title wwIcon i_16_tables">Simple
+							Table</h4>
+					</div>
+					<div class="widget_contents noPadding">
+						<table class="tables">
+							<thead>
+								<tr>
+									<th>Name</th>
+									<th>Side</th>
+									<th>Role</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td>Obi Wan Kenobi</td>
+									<td>Light</td>
+									<td>Jedi</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div> -->
+
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="wrapper">
+			<span class="copyright"></span>
+		</div>
+	</footer>
+	<script type="text/javascript">
+	$(function () {
+		$("#tabul .jq_dialog").addClass("active_tab"); 
+		$("#smalltabul .jq_dialog").addClass("smActive"); 
+	});
+	</script>
+</body>
+</html>

@@ -60,7 +60,7 @@
     <bean id="mysqlSqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="dataSource" ref="mysqlDataSource" />
         <!-- 自动扫描entity目录, 省掉xml里的手工配置 -->
-        <property name="typeAliasesPackage" value="com.gem.entity" />
+        <property name="typeAliasesPackage" value="com.jeegem.entity" />
         <!-- 显式指定Mapper文件位置  -->
         <property name="mapperLocations">
             <list>
@@ -70,7 +70,7 @@
         <property name="plugins"><array><ref bean="pagePlugin" /></array></property>
     </bean>
     <!-- 分页配置-->
-    <bean id="pagePlugin" class="com.gem.common.mybatis.PageInterceptor">
+    <bean id="pagePlugin" class="com.jeegem.common.mybatis.PageInterceptor">
 		<property name="properties">
 			<props>
 				<prop key="databaseType">mysql</prop>
@@ -81,9 +81,9 @@
     <!-- 扫描basePackage下所有以@MyBatisRepository标识的 接口-->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <property name="sqlSessionFactoryBeanName" value="mysqlSqlSessionFactory"/>
-        <property name="basePackage" value="com.gem.repository" />
+        <property name="basePackage" value="com.jeegem.repository" />
         <!-- 优化速度-->
-        <property name="annotationClass" value="com.gem.repository.base.GemBatis"/>
+        <property name="annotationClass" value="com.jeegem.repository.base.GemBatis"/>
     </bean>
 	<!-- 配置事务管理器 -->
 	<bean id="mysqlTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -101,7 +101,7 @@
 		</tx:attributes>
 	</tx:advice>
 	<aop:config proxy-target-class="true">
-		<aop:pointcut id="mysqlTransactionPointcut" expression="execution(* com.gem.service.*.*(..))" />
+		<aop:pointcut id="mysqlTransactionPointcut" expression="execution(* com.jeegem.service.*.*(..))" />
 		<aop:advisor pointcut-ref="mysqlTransactionPointcut" advice-ref="mysqlTransactionAdvice" />
 	</aop:config>
 	<tx:annotation-driven transaction-manager="mysqlTransactionManager" proxy-target-class="true" />
