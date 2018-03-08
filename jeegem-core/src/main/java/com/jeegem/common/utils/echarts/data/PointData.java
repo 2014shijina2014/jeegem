@@ -26,9 +26,8 @@ package com.jeegem.common.utils.echarts.data;
 
 /**
  * Description: PointData
- *
- * 
  */
+@SuppressWarnings({"serial"})
 public class PointData extends BasicData<PointData> {
     /**
      * 构造函数

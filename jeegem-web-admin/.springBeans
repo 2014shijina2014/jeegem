@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beansProjectDescription>
+	<version>1</version>
+	<pluginVersion><![CDATA[3.9.2.201712210913-RELEASE]]></pluginVersion>
+	<configSuffixes>
+		<configSuffix><![CDATA[xml]]></configSuffix>
+	</configSuffixes>
+	<enableImports><![CDATA[false]]></enableImports>
+	<configs>
+		<config>src/main/resources/spring/spring-redis.xml</config>
+	</configs>
+	<autoconfigs>
+		<config>src/main/resources/spring/spring-shiro.xml</config>
+		<config>src/main/resources/spring/activiti-modeler.xml</config>
+		<config>src/main/resources/spring/activiti-rest.xml</config>
+		<config>src/main/resources/spring/spring-application.xml</config>
+		<config>src/main/resources/spring/spring-mvc.xml</config>
+		<config>src/main/resources/spring/spring-quartz-task.xml</config>
+	</autoconfigs>
+	<configSets>
+	</configSets>
+</beansProjectDescription>

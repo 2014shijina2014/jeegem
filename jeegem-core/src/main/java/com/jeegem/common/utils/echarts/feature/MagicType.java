@@ -30,9 +30,7 @@ import java.util.Map;
 import com.jeegem.common.utils.echarts.code.Magic;
 import com.jeegem.common.utils.echarts.series.Funnel;
 
-/**
- * 
- */
+@SuppressWarnings({"unchecked","rawtypes","serial"})
 public class MagicType extends Feature {
     private Option option;
 

@@ -33,11 +33,13 @@ import com.jeegem.common.utils.echarts.data.GradientColor;
 
 /**
  * 热力图
- *
- * 
  */
 public class Heatmap extends Series<Heatmap> {
     /**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
      * 一个热力图数据点的模糊范围，单位是像素
      */
     private Integer blurSize;

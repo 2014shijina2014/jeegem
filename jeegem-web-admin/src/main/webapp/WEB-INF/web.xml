@@ -8,7 +8,7 @@
 
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
-		<param-value>classpath*:/spring/spring-application.xml,classpath*:/spring/spring-shiro.xml,classpath*:/spring/spring-quartz-task.xml,classpath*:/spring/spring-cache.xml</param-value>
+		<param-value>classpath*:/spring/spring-application.xml,classpath*:/spring/spring-shiro.xml,classpath*:/spring/spring-quartz-task.xml,classpath*:/spring/spring-redis.xml</param-value>
 	</context-param>
 
 	<context-param>

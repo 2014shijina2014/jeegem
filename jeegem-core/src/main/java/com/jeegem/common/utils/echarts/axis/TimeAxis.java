@@ -31,6 +31,7 @@ import com.jeegem.common.utils.echarts.code.AxisType;
  *
  * 
  */
+@SuppressWarnings("serial")
 public class TimeAxis extends ValueAxis {
     /**
      * 构造函数

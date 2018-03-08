@@ -29,6 +29,7 @@ import com.jeegem.common.utils.echarts.code.SeriesType;
 /**
  * 事件河流图
  */
+@SuppressWarnings("serial")
 public class EventRiver extends Series<EventRiver> {
 
     /**

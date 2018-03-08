@@ -25,6 +25,7 @@ import com.jeegem.common.utils.echarts.series.Scatter;
 import com.jeegem.common.utils.echarts.series.Series;
 
 
+@SuppressWarnings("rawtypes")
 public class SeriesDeserializer implements JsonDeserializer<Series> {
     
     /**
@@ -34,7 +35,9 @@ public class SeriesDeserializer implements JsonDeserializer<Series> {
      * @param typeOfT
      * @param context
      */
-    public Series deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
+    @SuppressWarnings("incomplete-switch")
+    @Override
+	public Series deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
         final JsonObject jsonObject = json.getAsJsonObject();
         String _type = jsonObject.get("type").getAsString();
         SeriesType type = SeriesType.valueOf(_type);

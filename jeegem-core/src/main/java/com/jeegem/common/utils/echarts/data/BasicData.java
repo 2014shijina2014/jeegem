@@ -36,9 +36,8 @@ import com.jeegem.common.utils.echarts.style.TextStyle;
 
 /**
  * Description: BasicData
- *
- * 
  */
+@SuppressWarnings({"unchecked","rawtypes"})
 public abstract class BasicData<T> implements Serializable {
 
     private static final long serialVersionUID = 3510060011221090087L;
@@ -207,7 +206,7 @@ public abstract class BasicData<T> implements Serializable {
      *
      * @param values
      */
-    public T value(Object... values) {
+	public T value(Object... values) {
         if (values == null || values.length == 0) {
             return (T) this;
         }

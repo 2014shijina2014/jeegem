@@ -37,9 +37,8 @@ import com.jeegem.common.utils.echarts.series.force.Node;
 
 /**
  * Description: Force
- *
- * 
  */
+@SuppressWarnings("serial")
 public class Force extends Series<Force> {
     /**
      * 力导向图中节点的分类

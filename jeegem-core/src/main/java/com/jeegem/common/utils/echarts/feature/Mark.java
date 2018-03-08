@@ -32,9 +32,8 @@ import com.jeegem.common.utils.echarts.style.LineStyle;
 
 /**
  * 辅助线标志，上图icon左数1/2/3，分别是启用，删除上一条，删除全部，可设置更多属性
- *
- * 
  */
+@SuppressWarnings({"unchecked","rawtypes","serial"})
 public class Mark extends Feature {
     /**
      * 构造函数

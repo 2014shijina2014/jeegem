@@ -31,6 +31,7 @@ import com.jeegem.common.utils.echarts.Tooltip;
  *
  * 
  */
+@SuppressWarnings({"serial"})
 public class Data extends BasicData<Data> {
     /**
      * 可以通过valueIndex:0指定为横轴特殊点

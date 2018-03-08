@@ -26,9 +26,8 @@ package com.jeegem.common.utils.echarts.data;
 
 /**
  * LineData
- *
- * 
  */
+@SuppressWarnings({"serial"})
 public class LineData extends BasicData<LineData> {
     /**
      * 可以通过valueIndex:0指定为横轴特殊点

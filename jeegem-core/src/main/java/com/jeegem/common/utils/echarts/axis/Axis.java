@@ -38,8 +38,13 @@ import com.jeegem.common.utils.echarts.code.Y;
  *
  * 
  */
+@SuppressWarnings("unchecked")
 public abstract class Axis<T> extends AbstractData<T> implements Component {
     /**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
      * 是否显示
      */
     private Boolean show;
@@ -104,7 +109,7 @@ public abstract class Axis<T> extends AbstractData<T> implements Component {
      *
      * @param zlevel
      */
-    public T zlevel(Integer zlevel) {
+	public T zlevel(Integer zlevel) {
         this.zlevel = zlevel;
         return (T) this;
     }

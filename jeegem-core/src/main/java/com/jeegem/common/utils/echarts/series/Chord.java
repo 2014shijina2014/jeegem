@@ -36,9 +36,8 @@ import com.jeegem.common.utils.echarts.series.force.Node;
 
 /**
  * Description: Chord
- *
- * 
  */
+@SuppressWarnings("serial")
 public class Chord extends Series<Chord> {
     /**
      * 力导向图中节点的分类

@@ -34,11 +34,14 @@ import com.jeegem.common.utils.echarts.series.gauge.Pointer;
 
 /**
  * 仪表盘
- *
  * 
  */
 public class Gauge extends Series<Gauge> {
     /**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 2788941664589527100L;
+	/**
      * 圆心坐标，支持绝对值（px）和百分比，百分比计算min(width, height) * 50%
      */
     private Object[] center;

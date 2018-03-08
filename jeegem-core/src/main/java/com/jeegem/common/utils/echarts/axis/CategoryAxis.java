@@ -31,6 +31,7 @@ import com.jeegem.common.utils.echarts.code.AxisType;
  *
  * 
  */
+@SuppressWarnings({"serial"})
 public class CategoryAxis extends Axis<CategoryAxis> {
     /**
      * [类目型]类目起始和结束两端空白策略，见下图，默认为true留空，false则顶头

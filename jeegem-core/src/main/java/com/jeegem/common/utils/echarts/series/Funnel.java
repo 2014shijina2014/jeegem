@@ -30,9 +30,8 @@ import com.jeegem.common.utils.echarts.code.X;
 
 /**
  * 漏斗图
- *
- * 
  */
+@SuppressWarnings("serial")
 public class Funnel extends Series<Funnel> {
     /**
      * 左上角横坐标，数值单位px，支持百分比（字符串），如'50%'(显示区域横向中心)

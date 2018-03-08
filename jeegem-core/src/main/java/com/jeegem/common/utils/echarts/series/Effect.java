@@ -28,8 +28,6 @@ import java.io.Serializable;
 
 /**
  * 图形炫光特效
- *
- * 
  */
 public class Effect implements Serializable {
 

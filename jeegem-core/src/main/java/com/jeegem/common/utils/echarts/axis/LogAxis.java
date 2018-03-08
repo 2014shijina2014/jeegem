@@ -28,9 +28,8 @@ import com.jeegem.common.utils.echarts.code.AxisType;
 
 /**
  * 时间型坐标轴用法同数值型，只是目标处理和格式化显示时会自动转变为时间，并且随着时间跨度的不同自动切换需要显示的时间粒度
- *
- * 
  */
+@SuppressWarnings({"serial"})
 public class LogAxis extends Axis<LogAxis> {
     /**
      * axis.type === 'log'时生效。指定时，axisLabel显示为指数形式，如指定为4时，axisLabel可显示为4²、4³。不指定时，显示为普通形式，如 1,000,000

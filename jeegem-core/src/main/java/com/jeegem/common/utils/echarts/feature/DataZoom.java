@@ -27,9 +27,7 @@ package com.jeegem.common.utils.echarts.feature;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * 
- */
+@SuppressWarnings({"unchecked","rawtypes","serial"})
 public class DataZoom extends Feature {
     /**
      * 构造函数

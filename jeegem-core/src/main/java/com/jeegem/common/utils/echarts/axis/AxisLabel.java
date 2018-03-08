@@ -31,6 +31,7 @@ import com.jeegem.common.utils.echarts.AbstractLabel;
  *
  * 
  */
+@SuppressWarnings({"serial"})
 public class AxisLabel extends AbstractLabel<AxisLabel> {
 
 }

@@ -30,9 +30,8 @@ import com.jeegem.common.utils.echarts.style.LineStyle;
 
 /**
  * 值轴
- *
- * .
  */
+@SuppressWarnings("serial")
 public class ValueAxis extends Axis<ValueAxis> {
     /**
      * 坐标轴名称位置，默认为'end'，可选为：'start' | 'end'

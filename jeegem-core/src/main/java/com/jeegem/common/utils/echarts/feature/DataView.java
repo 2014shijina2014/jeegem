@@ -24,9 +24,7 @@
 
 package com.jeegem.common.utils.echarts.feature;
 
-/**
- * 
- */
+@SuppressWarnings("serial")
 public class DataView extends Feature {
     /**
      * 构造函数

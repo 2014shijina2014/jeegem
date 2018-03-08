@@ -28,9 +28,8 @@ import com.jeegem.common.utils.echarts.code.SeriesType;
 
 /**
  * 柱形图
- *
- * 
  */
+@SuppressWarnings("serial")
 public class Bar extends Series<Bar> {
     /**
      * 柱条最小高度，可用于防止某item的值过小而影响交互
