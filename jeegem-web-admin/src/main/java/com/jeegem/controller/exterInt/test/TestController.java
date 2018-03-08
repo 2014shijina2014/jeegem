@@ -8,9 +8,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.alibaba.dubbo.config.annotation.Reference;
 import com.jeegem.common.ajax.AjaxRes;
 import com.jeegem.controller.base.BaseController;
 import com.jeegem.entity.system.dict.SysDict;
+import com.jeegem.service.article.ArticleService;
 import com.jeegem.service.system.dict.SysDictService;
 
 @Controller
@@ -19,6 +21,20 @@ public class TestController extends BaseController<Object>{
 	
 	@Autowired
 	public SysDictService service;
+	
+	@Reference
+	private ArticleService articleService;
+	
+	@RequestMapping("/getArticle")
+	public String getArticle(){
+		
+		String res = articleService.addArticle("teswt");
+		
+		System.out.println("res=>"+res);
+		
+		return "/system/test";
+	}
+
 	
 	//@RequestMapping(value="test", method=RequestMethod.POST)
 	@RequestMapping(value="getDict")

@@ -1,21 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://code.alibabatech.com/schema/dubbo"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:aop="http://www.springframework.org/schema/aop"
        xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd">
-
-  <!-- 启动注解驱动的Spring MVC功能，注册请求url和注解POJO类方法的映射-->   
-   <!--  <mvc:annotation-driven/>	 -->
-	<mvc:default-servlet-handler/>
+		http://code.alibabatech.com/schema/dubbo http://code.alibabatech.com/schema/dubbo/dubbo.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+	<mvc:annotation-driven />
+	<mvc:default-servlet-handler />
 	
-  	<!-- 自动扫描且只扫描@Controller -->
-    <context:component-scan base-package="com" use-default-filters="false">
-        <!-- 平台的controller，可以写多个 -->
-        <context:include-filter type="aspectj" expression="com.jeegem.controller..*Controller"/>
-    </context:component-scan>
+	<!-- 读取数据库配置文件 -->
+	<context:property-placeholder ignore-unresolvable="true" location="classpath*:/spring/config.properties" />
+	
+<!-- 关闭提供者的检索 -->
+	<dubbo:consumer check="false" />
+
+	<!-- 消费方应用名，用于计算依赖关系，不是匹配条件，不要与提供方一样 -->
+	<dubbo:application name="ts_consumer" />
+	
+	<!-- 使用zookeeper注册中心暴露服务地址 -->
+	<dubbo:registry address="${zookeeper.host}" />
+
+	<!-- 生成远程服务代理，可以像使用本地bean,这里基于注解实例化远程代理接口 -->
+	<dubbo:annotation package="com" />
+
+	<!-- 服务调用超时设置为60秒,超时不重试 -->
+	<dubbo:provider delay="-1" timeout="60000" retries="0" />
+
+	<!-- spring 扫描所有类，完成实例注入 -->
+	<context:component-scan base-package="com" />
+
+	<aop:aspectj-autoproxy proxy-target-class="true"/>
+	
     
     <!-- 对静态资源文件的访问  restful-->     
 	<mvc:resources mapping="/static/**" location="/,/static/" />
