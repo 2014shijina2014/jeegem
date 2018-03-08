@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+       http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+       http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.0.xsd
+       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+       
+  <bean id="objectMapper" class="com.fasterxml.jackson.databind.ObjectMapper"></bean>
+  
+  <bean id="processEngineConfiguration" class="org.activiti.spring.SpringProcessEngineConfiguration">
+  	<!-- 数据库连接池 -->
+  	<property name="dataSource" ref="mysqlDataSource" />
+  	<!-- 事务 -->
+  	<property name="transactionManager" ref="mysqlTransactionManager" />
+  	<!-- 数据库自动升级 -->
+  	<property name="databaseSchemaUpdate" value="false" />
+	<!-- 作业执行器 -->
+  	<property name="jobExecutorActivate" value="false" />
+    <property name="enableDatabaseEventLogging" value="false" />
+    <!-- 历史级别 -->
+	<property name="history" value="activity" />
+    <!-- 生成流程图的字体 -->
+    <property name="activityFontName" value="宋体"/>  
+    <property name="labelFontName" value="宋体"/>  
+    <property name="customFormTypes">
+      <list>
+        <bean class="org.activiti.explorer.form.UserFormType"/>
+        <bean class="org.activiti.explorer.form.ProcessDefinitionFormType"/> 
+        <bean class="org.activiti.explorer.form.MonthFormType"/>   
+      </list>
+    </property>
+   		 <!-- //更换id生成策略
+		<property name="idGenerator">
+			<bean class="org.activiti.engine.impl.persistence.StrongUuidGenerator" />
+		</property>
+		-->
+	<!--不创建identity表 -->
+	<property name="dbIdentityUsed" value="false"/>
+	<!--自定义用户和组-->
+	<property name="customSessionFactories">
+    	<list>
+    	     <bean class="com.jeegem.service.workflow.factory.GroupManagerFactory">
+                    <property name="groupEntityManager" >
+                     	<bean class="com.jeegem.service.workflow.factory.GroupManager"/>
+                    </property>
+            </bean>
+        	<bean class="com.jeegem.service.workflow.factory.UserManagerFactory">
+                    <property name="userEntityManager" >
+                   		 <bean class="com.jeegem.service.workflow.factory.UserManager"/>
+                    </property>
+            </bean>
+         </list>
+    </property>
+  </bean>
+  
+  <bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean" destroy-method="destroy">
+  	<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+  </bean>
+  
+  <!-- 7大接口 -->
+  <bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
+  <bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />
+  <bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />
+  <bean id="formService" factory-bean="processEngine" factory-method="getFormService" />
+  <bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
+  <bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
+  <bean id="identityService" factory-bean="processEngine" factory-method="getIdentityService" /> 
+  
+  <!-- 集成REST服务需要的bean -->
+  <bean id="restResponseFactory" class="org.activiti.rest.service.api.RestResponseFactory" />
+  <bean id="contentTypeResolver" class="org.activiti.rest.common.application.DefaultContentTypeResolver" />
+  
+</beans>

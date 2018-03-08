@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeegem.repository.system.org.OrgDao">
+	<!-- com.jeegem.entity.system.org.Org -->
+	<!-- com.jeegem.entity.system.org.Role -->
+    <resultMap id="base" type="BaseOrg"></resultMap>
+    <resultMap id="role" type="BaseRole"></resultMap>
+    <resultMap id="baseChild" type="BaseOrg">
+     	  <collection property="orgs" column="childId"  ofType="baseChild" select="getChildOrg"/> 
+     	  <collection property="roles" column="childId" ofType="role" select="getChildRole"/> 
+     </resultMap>
+    <resultMap id="baseOrgChild" type="BaseOrg">
+     	  <collection property="orgs" column="childId"  ofType="baseChild" select="getChildOrg"/> 
+    </resultMap>
+    <resultMap id="ZNodes" type="com.jeegem.common.utils.tree.entity.ZNodes"></resultMap>
+    <select id="find"  resultMap="base" parameterType="BaseOrg">
+       SELECT t.*,jbo.name as pName FROM jeegem_base_org t 
+       LEFT JOIN jeegem_base_org jbo 
+       ON jbo.id=t.pId
+       WHERE 1=1 
+       <if test="id != null and id!='' ">
+        	AND t.id=#{id}
+       </if>
+       <if test="pId != null and pId!='' ">
+        	AND t.pId=#{pId}
+       </if>
+       ORDER BY t.createTime
+    </select> 
+    <select id="findByPage"  resultMap="base" parameterType="BaseOrg">
+       SELECT t.* FROM jeegem_base_org t WHERE 1=1
+        ORDER BY t.createTime
+    </select>  
+    <select id="count"  resultType="int" parameterType="BaseOrg">
+       SELECT count(*) FROM jeegem_base_role t WHERE 1=1 
+    </select>      
+    <insert id="insert"  parameterType="BaseOrg">	
+ 	<![CDATA[
+	INSERT INTO jeegem_base_org(id,pId,name,isValid,description,createTime) 
+	VALUES (#{id},#{pId},#{name},1,#{description},#{createTime})
+	]]>  
+	</insert>
+	<delete id="delete" parameterType="BaseOrg">
+	DELETE FROM jeegem_base_org  
+	WHERE id=#{id} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.util.List">
+	DELETE from jeegem_base_org 
+	WHERE id in(
+		<foreach item="o" collection="list" open="" separator="," close="" >
+			#{o.id}
+		</foreach>
+		)
+	</delete>
+	<update id="update" parameterType="BaseOrg">
+		UPDATE jeegem_base_org 
+		SET name=#{name},
+			description=#{description},
+			updateTime =#{updateTime}
+		WHERE id=#{id}
+	</update>	
+	<!-- 机构树 -->
+	<select id="getOrgTree" resultMap="ZNodes" parameterType="String">
+       SELECT t.id as id,
+	   		  t.name as name,
+	   		  t.pId as pId
+	   FROM jeegem_base_org t
+       ORDER BY t.id,t.name
+    </select> 
+    <!-- 上级机构树 -->
+    <select id="getPreOrgTree" resultMap="ZNodes" parameterType="String">
+       SELECT t.id as id,
+	   		  t.name as name,
+	   		  t.pId as pId
+	   FROM jeegem_BASE_ORG t
+       ORDER BY t.id,t.name
+    </select> 
+    <!-- 权限列表包含按钮 -->
+    <select id="listAuthorized" resultMap="ZNodes" parameterType="String">    		
+      SELECT jbre.id as id,
+	   		jbre.name as name,
+	   		jbre.parentId as pId,
+			(CASE WHEN jbor.org_id IS NOT NULL THEN 'true' 
+				  ELSE '' END) as checked,
+			(CASE WHEN jbre.isValid=1 and jbor.org_id IS NOT NULL THEN 'true' 
+				  ELSE '' END) as open,
+			(CASE WHEN jbre.isValid!=1 THEN 'true' 
+				  ELSE '' END) as chkDisabled
+	 FROM jeegem_BASE_RESOURCES jbre
+	 LEFT JOIN (SELECT t.org_Id,t.resources_id from jeegem_base_org_resources t 
+	  			WHERE t.org_id=#{orgId}) jbor
+	 ON jbor.resources_id=jbre.id
+	 WHERE jbre.layer=#{layer}
+     ORDER BY jbre.parentId,jbre.type,jbre.sort
+    </select>
+      <!-- 权限列表包含按钮带门限 -->
+    <select id="listAuthorizedByTh" resultMap="ZNodes" parameterType="String">    		
+      SELECT jbre.id as id,
+	   		jbre.name as name,
+	   		jbre.parentId as pId,
+			(CASE WHEN jbor.th_org_Id IS NOT NULL AND jbor.org_id IS NOT NULL THEN 'true' 
+				  ELSE '' END) as 'checked',
+			(CASE WHEN jbre.isValid=1 and jbor.th_org_Id IS NOT NULL AND jbor.org_id IS NOT NULL THEN 'true' 
+				  ELSE '' END) as 'open',
+			(CASE WHEN jbre.isValid!=1 or jbor.th_org_Id IS NULL THEN 'true' 
+				  ELSE '' END) as 'chkDisabled'
+	 FROM jeegem_BASE_RESOURCES jbre
+	 LEFT JOIN (SELECT thjbor.org_Id as th_org_Id,
+					   thjbor.resources_id as resources_id,
+					   tjbor.org_Id as org_Id
+					   FROM jeegem_base_org_resources thjbor
+					   LEFT JOIN  (SELECT t.org_Id,t.resources_id FROM jeegem_base_org_resources t where t.org_id=#{orgId}) tjbor
+					   ON thjbor.resources_id=tjbor.resources_id
+					   WHERE thjbor.org_Id=#{pId}) jbor
+	 ON jbor.resources_id=jbre.id
+	 WHERE jbre.layer=#{layer}
+     ORDER BY jbre.parentId,jbre.type,jbre.sort
+    </select>
+    <delete id="delAuthorizedByOrgId" parameterType="String">
+		DELETE FROM jeegem_base_org_resources 
+		WHERE org_Id=#{orgId} 
+	</delete>
+	 <delete id="delAuthorizedByOrgIdAndLayer" parameterType="String">
+		DELETE FROM jeegem_base_org_resources 
+		WHERE org_Id=#{orgId} AND EXISTS (SELECT jbr.id FROM jeegem_base_resources jbr 
+										  WHERE resources_id=jbr.id AND jbr.layer=#{layer})
+	</delete>
+	<delete id="deleteBatchAuthorizedByOrgId" parameterType="java.util.List">
+	DELETE FROM jeegem_base_org_resources 
+	WHERE org_Id in(
+		<foreach item="o" collection="list" open="" separator="," close="" >
+			#{o.id}
+		</foreach>
+		)
+	</delete>
+	<insert id="insertAuthorizedByOrgId" parameterType="java.util.List">
+		INSERT INTO jeegem_base_org_resources(org_id,resources_id)  
+		VALUES 
+		<foreach item="o" collection="list" open="" separator="," close="" >
+			(#{o.orgId},#{o.resourcesId})
+		</foreach>
+	</insert>
+	 <select id="getOrg"  resultMap="base" parameterType="String">
+       SELECT t.*,jbo.name as pName FROM jeegem_base_org t 
+       LEFT JOIN jeegem_base_org jbo 
+       ON jbo.id=t.pId
+       WHERE 1=1 
+       <if test="id != null and id!='' ">
+        	and t.id=#{id}
+       </if>
+    </select> 
+     <select id="findAndChild"  resultMap="baseChild" parameterType="String">
+       SELECT t.id,t.pId,t.id as childId,t.name  FROM jeegem_base_org t 
+       WHERE t.id=#{id}
+    </select>
+     <select id="findAllOrg"  resultMap="baseOrgChild" parameterType="String">
+       SELECT t.id,t.pId,t.id as childId,t.name  FROM jeegem_base_org t 
+       WHERE t.id=#{id}
+    </select>  
+    <select id="getChildOrg"  resultMap="baseChild" parameterType="BaseOrg">
+       SELECT t.id,t.pId,t.id as childId,t.name FROM jeegem_base_org t 
+       WHERE t.pId=#{id}
+    </select> 
+    <select id="getChildRole"  resultMap="role" parameterType="BaseOrg">
+       SELECT t.id,t.orgId,t.name FROM jeegem_base_role t 
+       WHERE t.orgId=#{id}
+    </select>      
+     <select id="getNotAuthoByOrg"  resultType="String" parameterType="map">
+     SELECT jbor.resources_id FROM jeegem_base_org_resources jbor 
+     LEFT JOIN jeegem_base_resources jbr
+     ON jbr.id=jbor.resources_id 
+     WHERE jbor.resources_id NOT IN(
+		<foreach item="o" collection="resIds" open="" separator="," close="" >
+			#{o}
+		</foreach>
+		) AND jbor.org_Id=#{orgId} AND jbr.layer=#{layer}
+    </select> 
+    <delete id="delBatchAuthByOrg" parameterType="java.util.List">
+	DELETE FROM jeegem_base_org_resources 
+	WHERE 
+		<foreach item="o" collection="list" open="" separator=" or " close="" >
+			(resources_id=#{o.resourcesId} AND org_Id=#{o.orgId})
+		</foreach>	
+	</delete>
+	<delete id="delBatchAuthByRole" parameterType="java.util.List">
+	DELETE FROM jeegem_base_role_resources 
+	WHERE 
+		<foreach item="o" collection="list" open="" separator=" or " close="" >
+			(resources_id=#{o.resourcesId} AND role_id=#{o.roleId})
+		</foreach>	
+	</delete>
+</mapper>

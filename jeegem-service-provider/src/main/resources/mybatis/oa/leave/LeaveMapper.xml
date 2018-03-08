@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeegem.repository.oa.leave.LeaveDao">
+	<!-- com.jeegem.entity.oa.leave.Leave  -->
+ 	<resultMap id="base" type="OaLeave" ></resultMap>
+ 	<select id="find"  resultMap="base" parameterType="OaLeave">
+       SELECT t.* FROM OA_LEAVE t WHERE 1=1 
+       <if test="id != null and id!='' ">
+        	AND t.id=#{id}
+       </if>
+    </select> 
+ 	<select id="findByPage"  resultMap="base" parameterType="OaLeave">
+       SELECT t.* FROM OA_LEAVE t WHERE 1=1 
+       <if test="param.isValid!= null">
+        	AND t.isValid=#{param.isValid}
+       </if>
+       <if test="param.keyWord!= null">
+        	AND (
+        	t.name LIKE CONCAT('%',#{param.keyWord},'%')    
+        	OR   t.description LIKE CONCAT('%',#{param.keyWord},'%'))
+        	)
+       </if>
+       order by t.createTime desc
+    </select>  
+    <select id="count"  resultType="int" parameterType="OaLeave">
+       SELECT count(*) FROM OA_LEAVE t WHERE 1=1 
+    </select>        
+ 	<insert id="insert"  parameterType="OaLeave">	
+ 	<![CDATA[
+	INSERT INTO OA_LEAVE(
+	id,
+	org,
+	name,
+	approver,
+	type,
+	description,
+	beginTime,
+	endTime,
+	pId,
+	account_id,
+	createTime
+	) VALUES (
+	#{id},
+	#{org},
+	#{name},
+	#{approver},
+	#{type},
+	#{description},
+	#{beginTime},
+	#{endTime},
+	#{pId},
+	#{account_id},
+	#{createTime}	
+	)
+	]]>  
+	</insert>
+	<delete id="delete" parameterType="OaLeave">
+	DELETE FROM OA_LEAVE  WHERE 1=1 
+	AND id=#{id} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.util.List">
+	DELETE FROM OA_LEAVE 
+	WHERE id IN(
+		<foreach item="o" collection="list" open="" separator="," close="" >
+			#{o.id}
+		</foreach>
+		)
+	</delete>
+	<update id="update" parameterType="OaLeave">
+		UPDATE OA_LEAVE 
+		SET beginTime  =#{beginTime},
+			endTime =#{endTime},
+			type=#{type},
+			description =#{description},
+			name=#{name},
+			org=#{org},
+			updateTime =#{updateTime}
+		WHERE id=#{id}
+	</update>	
+	<select id="findLeaveByPId"  resultMap="base" parameterType="OaLeave">
+       SELECT t.*,jddi.name as typeName FROM OA_LEAVE t 
+       LEFT JOIN jeegem_DATA_DICT_ITEM jddi
+       ON t.type=jddi.value
+       WHERE t.pId=#{pId}
+    </select>    
+    <update id="updateRejectReason" parameterType="OaLeave">
+		UPDATE OA_LEAVE 
+		SET rejectReason =#{rejectReason},
+			updateTime =#{updateTime}
+		WHERE pId=#{pId}
+	</update>	
+       <update id="updateDescription" parameterType="OaLeave">
+		UPDATE OA_LEAVE 
+		SET description =#{description},
+			updateTime =#{updateTime}
+		WHERE pId=#{pId}
+	</update>	
+</mapper>

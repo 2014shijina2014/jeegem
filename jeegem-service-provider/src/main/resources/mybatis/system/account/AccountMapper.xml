@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeegem.repository.system.account.AccountDao">
+	<!--  com.jeegem.entity.system.account.Account -->
+    <resultMap id="base" type="BaseAccount">
+      <id column="ID" jdbcType="VARCHAR" property="accountId"/>
+      <association property="loginLog" column="ID" javaType="LoginLog" select="getLoginLogById" />
+      <collection  property="poss"     column="ID" ofType="basePos" select="getPoss"/> 
+    </resultMap> 
+    <resultMap id="LoginLog" type="LoginLog" ></resultMap>
+    <resultMap id="ZNodes" type="com.jeegem.common.utils.tree.entity.ZNodes"></resultMap>
+    <resultMap id="basePos" type="BasePos"></resultMap>
+    <!-- 防止密码外泄，取消密码列 -->
+    <select id="find" resultMap="base" parameterType="BaseAccount">
+       SELECT t.id,
+       		  t.loginName,
+       		  t.roleId,
+       		  jbr.name as roleName,
+       		  t.name,
+       		  t.picUrl,
+       		  t.email,
+       		  t.isValid,
+       		  t.createTime,
+       		  t.updateTime,
+       		  t.skin,
+       		  t.description
+       		  FROM jeegem_base_account t 
+      LEFT JOIN jeegem_BASE_ROLE jbr
+      ON jbr.id=t.roleId
+      WHERE 1=1 
+       <if test="loginName != null and loginName!='' ">
+        	and t.loginName=#{loginName}
+       </if>
+       <if test="accountId != null ">
+        	and t.id=#{accountId}
+       </if> 
+    </select> 
+    <!--  防止密码外泄，取消密码列 -->
+ 	<select id="findByPage"  resultMap="base" parameterType="BaseAccount">
+      SELECT t.id,
+       		  t.loginName,
+       		  t.roleId,  
+       		  jbr.name as roleName,
+       		  t.name,
+       		  t.picUrl,
+       		  t.email,
+       		  t.isValid,
+       		  t.createTime,
+       		  t.updateTime,
+       		  t.skin,
+       		  t.description FROM jeegem_BASE_ACCOUNT t 
+      LEFT JOIN jeegem_BASE_ROLE jbr
+      ON jbr.id=t.roleId
+      WHERE 1=1 
+       <if test="param.loginName != null and param.loginName!='' ">			
+        	AND t.loginName LIKE CONCAT('%',#{param.loginName},'%')
+       </if>
+       <if test="param.keyWord!= null">
+        	AND (
+        	t.loginName LIKE CONCAT('%',#{param.keyWord},'%')    
+        	OR t.name LIKE CONCAT('%',#{param.keyWord},'%')
+        	OR t.email LIKE CONCAT('%',#{param.keyWord},'%')
+        	)
+       </if>
+        <if test="param.roleId != null ">
+        	AND t.roleId=#{param.roleId}
+       </if>  
+       <if test="param.isValid != null ">
+        	AND t.isValid=#{param.isValid}
+       </if>  
+        ORDER BY t.createTime desc
+    </select>  
+    <select id="count"  resultType="int" parameterType="BaseAccount">
+       SELECT count(*) FROM jeegem_base_account t  WHERE 1=1 
+    </select>        
+ 	<insert id="insert"  parameterType="BaseAccount">	
+ 	<![CDATA[
+	INSERT INTO jeegem_base_account(
+	id,loginName,name,password,salt,roleId,skin,email,isValid,createTime,description
+	) VALUES (#{accountId},#{loginName},#{name},#{password},#{salt},#{roleId},#{skin},
+	#{email},#{isValid},#{createTime},#{description}
+	)
+	]]>  
+	</insert>
+	<delete id="delete" parameterType="BaseAccount">
+	delete from jeegem_base_account  
+	WHERE id=#{accountId}
+	</delete>
+	<delete id="deleteBatch" parameterType ="java.util.List">
+	DELETE FROM jeegem_base_account WHERE id in(
+		<foreach item="o" collection="list" open="" separator="," close="" >
+			#{o.accountId}
+		</foreach>
+		)
+	</delete>
+	<update id="update" parameterType="BaseAccount">
+		UPDATE jeegem_base_account 
+		SET name =#{name},
+			email =#{email},
+			isValid =#{isValid},
+			roleId =#{roleId},
+			updateTime =#{updateTime},
+			description =#{description}
+		WHERE id=#{accountId}
+	</update>
+    <!-- 这方法能获取密码和盐 -->
+    <select id="findFormatByLoginName"  resultMap="base" parameterType="String">
+    	<![CDATA[
+       SELECT a.* FROM jeegem_base_account a WHERE 1=1 
+       AND a.isvalid='1' 
+       AND a.loginname=#{loginName,jdbcType=VARCHAR}
+       ]]>  
+    </select>
+    <!-- 这方法不能能获取密码和盐 -->
+    <select id="findAccountById"  resultMap="base" parameterType="String">
+       SELECT  t.id,
+       		  t.loginName,
+       		  t.roleId,
+       		  jbr.name as roleName,
+       		  t.name,
+       		  t.picUrl,
+       		  t.email,
+       		  t.isValid,
+       		  t.createTime,
+       		  t.updateTime,
+       		  t.skin,
+       		  t.description 
+       	FROM jeegem_base_account t 
+       	LEFT JOIN jeegem_BASE_ROLE jbr
+        ON jbr.id=t.roleId 
+        WHERE t.accountId=#{accountId}
+    </select>
+   <update id="setSetting" parameterType="BaseAccount">
+		UPDATE jeegem_base_account 
+		SET   skin =#{skin}
+		WHERE id=#{accountId}
+	</update>
+	<select id="getPerData" resultMap="base" parameterType="String" >
+		   SELECT t.id,
+		   	  t.loginName,
+       		  t.roleId,
+       		  t.picUrl,
+       		  t.name,
+       		  t.email,   		  
+       		  t.createTime,
+       		  t.updateTime,
+       		  t.description,
+       		  jbr.name as roleName
+       		  FROM jeegem_base_account t 
+       	   LEFT JOIN  jeegem_base_role jbr
+       	   ON jbr.id=t.roleId
+       	   WHERE t.isValid=1 and t.id=#{accountId} 
+	</select>
+	<update id="setPerData" parameterType="BaseAccount">
+		UPDATE jeegem_base_account 
+		SET   name =#{name},
+			  email =#{email},
+			  updateTime =#{updateTime}
+		WHERE id=#{accountId}
+	</update>
+	<update id="setHeadpic" parameterType="BaseAccount">
+		UPDATE jeegem_base_account 
+		SET   picUrl =#{picUrl},
+			  updateTime =#{updateTime}
+		WHERE id=#{accountId}
+	</update>
+	<select id="getRoles" resultMap="ZNodes">
+		SELECT jbo.id,
+			   jbo.pId,
+			   jbo.name,
+			   'o' as other 
+		FROM jeegem_base_org jbo
+		UNION ALL 
+		SELECT CONCAT('role',jbr.id) as id,
+			   jbr.orgId as pId,
+			   jbr.name,
+			   'r' as other 
+		FROM jeegem_base_role jbr
+	</select>
+    <select id="findCountByLoginName" resultType="int">
+       SELECT COUNT(*)
+       		  FROM jeegem_base_account t 
+       WHERE  t.loginName=#{loginName}
+    </select> 
+    <update id="resetPwd" parameterType="BaseAccount">
+		UPDATE jeegem_base_account 
+		SET   password =#{password},
+			  salt =#{salt}
+		WHERE id=#{accountId}
+	</update>
+	
+	<select id="getLoginLogById"  parameterType="string" resultMap="LoginLog">
+	SELECT MAX(jbll.loginTime) as loginTime,jbll.loginIP 
+	FROM (SELECT t.accountId,t.loginIP,t.loginTime from jeegem_base_login_log t WHERE t.accountId=#{ID}) jbll
+	GROUP BY jbll.accountId
+	</select>
+	<select id="getPoss"  parameterType="string" resultMap="basePos" >
+	  SELECT jbp.* FROM jeegem_base_account_position jbap 
+	  LEFT JOIN jeegem_base_position jbp
+	  ON jbp.id=jbap.posId
+	  WHERE jbap.accountId=#{ID}      
+	  ORDER BY jbap.posId
+    </select>
+</mapper>

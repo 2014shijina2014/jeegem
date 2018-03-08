@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeegem.repository.system.org.RoleDao">
+	<!-- com.jeegem.entity.system.org.Role -->
+    <resultMap id="base" type="BaseRole"></resultMap>
+    <resultMap id="ZNodes" type="com.jeegem.common.utils.tree.entity.ZNodes"></resultMap>
+    <select id="find"  resultMap="base" parameterType="BaseRole">
+       SELECT t.* FROM jeegem_base_role t WHERE 1=1 
+       <if test="name != null and name!='' ">
+        	and t.name=#{name}
+       </if>
+       <if test="id != null and id!='' ">
+        	and t.id=#{id}
+       </if>
+  	   <if test="isValid!= null">
+        	and t.isValid=#{isValid}
+       </if>
+       ORDER BY t.createTime
+    </select> 
+    <select id="findByPage"  resultMap="base" parameterType="BaseRole">
+       SELECT t.* FROM jeegem_base_role t WHERE 1=1
+      <if test="param.orgId!= null and param.orgId!=''">
+        	AND t.orgId=#{param.orgId}
+      </if>
+      <if test="param.keyWord!= null">
+        	AND (t.name like CONCAT('%',#{param.keyWord},'%') )
+      </if>
+      <if test="param.isValid!= null">
+        	AND t.isValid=#{param.isValid}
+      </if>
+        ORDER BY t.createTime
+    </select>
+    <select id="findAllRoleByPage"  resultMap="base" parameterType="BaseRole">
+       SELECT t.* FROM jeegem_base_role t WHERE 1=1
+      <if test="param.allOrgIds!= null and param.allOrgIds!=''">
+        	AND t.orgId IN (${param.allOrgIds})
+      </if>
+      <if test="param.keyWord!= null and param.keyWord!=''">
+        	AND (t.name like CONCAT('%',#{param.keyWord},'%') )
+      </if>
+      <if test="param.isValid!= null">
+        	AND t.isValid=#{param.isValid}
+      </if>
+        ORDER BY t.createTime
+    </select>    
+    <select id="count"  resultType="int" parameterType="BaseRole">
+       SELECT count(*) FROM jeegem_base_role t WHERE 1=1 
+    </select>      
+    	<insert id="insert"  parameterType="BaseRole">	
+ 	<![CDATA[
+	INSERT INTO jeegem_base_role(id,orgId,name,isValid,description,createTime) 
+	VALUES (#{id},#{orgId},#{name},#{isValid},#{description},#{createTime})
+	]]>  
+	</insert>
+	<delete id="delete" parameterType="BaseRole">
+	DELETE FROM jeegem_base_role  
+	WHERE id=#{id} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.util.List">
+	DELETE FROM jeegem_base_role 
+	WHERE id in(
+		<foreach item="o" collection="list" open="" separator="," close="" >
+			#{o.id}
+		</foreach>
+		)
+	</delete>
+	<update id="update" parameterType="BaseRole">
+		UPDATE jeegem_base_role 
+		SET name =#{name},
+			isValid=#{isValid},
+			description=#{description},
+			updateTime =#{updateTime}
+		WHERE id=#{id}
+	</update>	
+	<!-- 权限列表包含按钮 -->
+    <select id="listAuthorized" resultMap="ZNodes" parameterType="String">    		
+ 	SELECT jbre.id as id,
+	   		jbre.name as name,
+	   		jbre.parentId as pId,
+			(CASE WHEN jbor.role_id IS NOT NULL THEN 'true' 
+				  ELSE '' END) as checked,
+			(CASE WHEN jbre.isValid=1 and jbor.role_id IS NOT NULL THEN 'true' 
+				  ELSE '' END) as open,
+			(CASE WHEN jbre.isValid!=1 or jbor.th_org_Id IS NULL THEN 'true' 
+				  ELSE '' END) as chkDisabled
+	 FROM jeegem_BASE_RESOURCES jbre
+	 LEFT JOIN (SELECT 	thjbor.org_Id as th_org_Id,
+				thjbor.resources_id as resources_id,
+			    tjbrr.role_id as role_Id
+			    FROM jeegem_base_org_resources thjbor
+			    LEFT JOIN (SELECT t.role_id,t.resources_id FROM jeegem_base_role_resources t where t.role_id=#{roleId}) tjbrr
+					   ON thjbor.resources_id=tjbrr.resources_id
+					   WHERE thjbor.org_Id in (SELECT t.orgId FROM jeegem_base_role t WHERE t.id=#{roleId})) jbor
+	 ON jbor.resources_id=jbre.id
+	 WHERE jbre.layer=#{layer}
+     ORDER BY jbre.parentId,jbre.type,jbre.sort
+    </select>
+    <delete id="delAuthorizedByRoleId" parameterType="String">
+		DELETE from jeegem_base_role_resources 
+		WHERE role_id=#{roleId} 
+	</delete>
+	<delete id="delAuthorizedByRoleIdAndLayer" parameterType="String">
+		DELETE from jeegem_base_role_resources 
+		WHERE role_id=#{roleId} AND EXISTS (SELECT jbr.id FROM jeegem_base_resources jbr 
+										  WHERE resources_id=jbr.id AND jbr.layer=#{layer})
+	</delete>
+	<delete id="deleteBatchAuthorizedByRoleId" parameterType="java.util.List">
+	DELETE from jeegem_base_role_resources 
+	WHERE role_id in(
+		<foreach item="o" collection="list" open="" separator="," close="" >
+			#{o.id}
+		</foreach>
+		)
+	</delete>
+	<insert id="insertAuthorizedByRoleId" parameterType="java.util.List">
+		INSERT INTO jeegem_base_role_resources(role_id,resources_id)  
+		VALUES 
+		<foreach item="o" collection="list"  separator="," >
+			(#{o.roleId},#{o.resourcesId})
+		</foreach>
+	</insert>
+	 <select id="getRole"  resultMap="base" parameterType="String">
+       SELECT t.* FROM jeegem_base_role t 
+       WHERE 1=1 
+       <if test="id != null and id!='' ">
+        	and t.id=#{id}
+       </if>
+    </select> 
+</mapper>

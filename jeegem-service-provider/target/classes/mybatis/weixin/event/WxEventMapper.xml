@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeegem.repository.weixin.event.WxEventClickDao">
+	<!-- com.jeegem.entity.weixin.event.WxEventClick  -->
+ 	<resultMap id="base" type="WxEventClick" ></resultMap>
+ 	<select id="find"  resultMap="base" parameterType="WxEventClick">
+       SELECT t.* FROM WX_EVENT_CLICK t WHERE 1=1 
+       <if test="id != null and id !='' ">
+        	AND t.id=#{id}
+       </if>
+       <if test="key != null and key !='' ">
+        	AND t.key=#{key}
+       </if>
+        ORDER BY t.sort 
+    </select> 
+ 	<select id="findByPage"  resultMap="base" parameterType="WxEventClick">
+       SELECT t.* FROM WX_EVENT_CLICK t WHERE 1=1 
+       order by t.sort 
+    </select>  
+    <select id="count"  resultType="int" parameterType="WxEventClick">
+       SELECT count(*) FROM WX_EVENT_CLICK t WHERE 1=1 
+    </select>   
+ 	<insert id="insert"  parameterType="WxEventClick">	
+ 	<![CDATA[
+	INSERT INTO WX_EVENT_CLICK(id,keyId,title,content,picUrl,url,sort,createTime) 
+	VALUES (#{id},#{keyId},#{title},#{content},#{picUrl},#{url},#{sort},#{createTime})
+	]]>  
+	</insert>
+	<insert id="insertItems" parameterType="java.util.List">	
+		INSERT INTO WX_EVENT_CLICK(id,keyId,title,content,picUrl,url,sort,createTime) 
+		VALUES 
+		<foreach item="o" collection="list"  separator="," >
+	    (#{o.id},#{o.keyId},#{o.title},#{o.content},#{o.picUrl},#{o.url},#{o.sort},#{o.createTime})
+		</foreach>
+	</insert>
+	<delete id="delete" parameterType="WxEventClick">
+	DELETE FROM WX_EVENT_CLICK WHERE keyId=#{keyId} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.util.List">
+	DELETE FROM WX_EVENT_CLICK 
+	WHERE id IN(
+		<foreach item="o" collection="list" open="" separator="," close="" >
+			#{o.id}
+		</foreach>
+		)
+	</delete>
+	<update id="update" parameterType="WxEventClick">
+		UPDATE WX_EVENT_CLICK 
+		SET keyId =#{keyId},
+			title =#{title},
+			content =#{content},
+			picUrl =#{picUrl},
+			url =#{url},
+			updateTime =#{updateTime},
+			sort =#{sort}
+		WHERE id=#{id}
+	</update>
+</mapper>

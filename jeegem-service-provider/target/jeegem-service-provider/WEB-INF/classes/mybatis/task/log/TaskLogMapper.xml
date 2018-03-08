@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeegem.repository.task.log.TaskLogDao">
+	<!-- com.jeegem.entity.task.log.TaskLog  -->
+ 	<resultMap id="base" type="TaskLog" ></resultMap>
+ 	<select id="find"  resultMap="base" parameterType="TaskLog">
+       SELECT t.id,t.name,t.className,t.type,t.description,t.createTime FROM jeegem_TASK_LOG t WHERE 1=1 
+       <if test="id != null and id!='' ">
+        	AND t.id=#{id}
+       </if>
+       <if test="type != null ">
+        	AND t.type=#{type}
+       </if>
+         order by t.createTime desc
+    </select> 
+ 	<select id="findByPage"  resultMap="base" parameterType="TaskLog">
+          SELECT t.id,t.name,t.className,t.type,t.description,t.createTime FROM jeegem_TASK_LOG t WHERE 1=1 
+       <if test="param.id!= null and param.id!='' ">
+        	AND t.id=#{param.id}
+       </if>
+       <if test="param.type!= null">
+        	AND t.type=#{param.type}
+       </if>
+       <if test="param.keyWord!= null">
+        	AND (
+        	t.name LIKE CONCAT('%',#{param.keyWord},'%')    
+        	OR t.className LIKE CONCAT('%',#{param.keyWord},'%')
+        	OR t.description LIKE CONCAT('%',#{param.keyWord},'%')
+        	)
+       </if>
+       <if test="param.beginTime != null and param.beginTime!=''  ">
+       <![CDATA[
+        	AND DATE_FORMAT(t.createTime, '%Y-%m-%d') >=  DATE_FORMAT(#{param.beginTime}, '%Y-%m-%d')
+       ]]>  
+       </if> 
+       <if test="param.endTime != null and param.endTime!=''  ">
+       <![CDATA[
+        	AND DATE_FORMAT(t.createTime, '%Y-%m-%d') <=  DATE_FORMAT(#{param.endTime}, '%Y-%m-%d')
+       ]]>  
+       </if> 
+       order by t.createTime desc
+    </select>  
+    <select id="count"  resultType="int" parameterType="TaskLog">
+       SELECT count(*) FROM jeegem_TASK_LOG t
+    </select>        
+ 	<insert id="insert"  parameterType="TaskLog">	
+ 	<![CDATA[
+	INSERT INTO jeegem_TASK_LOG(
+	id,
+	name,
+	className,
+	type,
+	description,
+	createTime
+	) VALUES (
+	#{id},
+	#{name},
+	#{className},
+	#{type},
+	#{description},
+	#{createTime}
+	)
+	]]>  
+	</insert>
+	<delete id="delete" parameterType="TaskLog">
+	DELETE FROM jeegem_TASK_LOG  WHERE id=#{id} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.util.List">
+	DELETE FROM jeegem_TASK_LOG 
+	WHERE id IN(
+		<foreach item="o" collection="list" open="" separator="," close="" >
+			#{o.id}
+		</foreach>
+		)
+	</delete>
+	<update id="update" parameterType="TaskLog">
+		UPDATE jeegem_TASK_LOG 
+		SET description=#{description},	
+		WHERE id=#{id}
+	</update>	
+	
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeegem.repository.weixin.menu.WxMenuDao">
+	<!-- com.jeegem.entity.weixin.menu.WxMenu  -->
+	<!-- com.jeegem.entity.weixin.event.WxEventClick  -->
+ 	<resultMap id="base" type="WxMenu" >
+ 		<collection property="items" column="itemId" ofType="WxEventClick" select="getItem"/> 
+ 	</resultMap>
+ 	<resultMap id="baseItem" type="WxEventClick" ></resultMap>
+ 	<select id="find"  resultMap="base" parameterType="WxMenu">
+       SELECT t.*,t.keyId as itemId FROM WX_MENU t WHERE 1=1 
+       <if test="id != null and id !='' ">
+        	AND t.id=#{id}
+       </if>
+        ORDER BY t.pId,t.sort
+    </select> 
+     <select id="getItem"  resultMap="baseItem" parameterType="WxEventClick">
+       SELECT t.* FROM WX_EVENT_CLICK t WHERE  
+       t.keyId=#{itemId}
+       ORDER BY t.sort
+    </select> 
+ 	<select id="findByPage"  resultMap="base" parameterType="WxMenu">
+       SELECT t.* FROM WX_MENU t WHERE 1=1 
+       <if test="param.isValid!= null">
+        	AND t.isValid=#{param.isValid}
+       </if>
+       order by t.createTime desc
+    </select>  
+    <select id="count"  resultType="int" parameterType="WxMenu">
+       SELECT count(*) FROM WX_MENU t WHERE 1=1 
+    </select>   
+    <select id="menuCount"  resultType="int" parameterType="WxMenu">
+       SELECT count(*) FROM WX_MENU t WHERE 1=1 
+       <if test="pId!= null and pId !=''">
+        	AND t.pId=#{pId}
+       </if>
+    </select>      
+ 	<insert id="insert"  parameterType="WxMenu">	
+ 	<![CDATA[
+	INSERT INTO WX_MENU(id,pId,keyId,name,type,url,sort,createTime,selectType) 
+	VALUES (#{id},#{pId},#{keyId},#{name},#{type},#{url},#{sort},#{createTime},#{selectType})
+	]]>  
+	</insert>
+	<delete id="delete" parameterType="WxMenu">
+	DELETE FROM WX_MENU WHERE 1=1 
+	AND id=#{id} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.util.List">
+	DELETE FROM WX_MENU 
+	WHERE id IN(
+		<foreach item="o" collection="list" open="" separator="," close="" >
+			#{o.id}
+		</foreach>
+		)
+	</delete>
+	<update id="update" parameterType="WxMenu">
+		UPDATE WX_MENU 
+		SET name =#{name},
+			type =#{type},
+			selectType=#{selectType},
+			keyId =#{keyId},
+			sort =#{sort},
+			url =#{url},
+			updateTime =#{updateTime},
+			remark =#{remark}
+		WHERE id=#{id}
+	</update>
+	<select id="getWxMenuByKeyId"  resultMap="base" parameterType="String">
+       SELECT t.*,t.keyId as itemId FROM WX_MENU t WHERE t.keyId=#{keyId}
+    </select> 
+</mapper>

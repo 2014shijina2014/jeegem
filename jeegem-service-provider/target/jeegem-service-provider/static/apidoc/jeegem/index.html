@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JEEGEM</title>
+<link rel="stylesheet" href="../commonStyle/css/style.css" />
+</head>
+<body>
+<div class="logo"><img src="logo.png"></div><br/>
+<h2>JEEGEM方法主要分类：</h2>
+
+<!-- <pre class="prettyprint xml"> -->
+<table id='tableID' class="imagetable">
+<tr><th>序号</th><th>分类</th><th>用途</th></tr>
+<tr><td>1</td><td><a href="#ObjectID">Object</a></td><td>封装对象方法</td></tr>
+<tr><td>2</td><td><a href="#DictID">Dict</a></td><td>封装字典方法</td></tr>
+<tr><td>3</td><td><a href="#PageID">Page</a></td><td>封装分页方法</td></tr>
+<tr><td>4</td><td><a href="#ModelID">Model</a></td><td>封装弹出框方法</td></tr>
+<tr><td>5</td><td><a href="#ValidateID">Validate</a></td><td>封装验证方法</td></tr>
+<tr><td>6</td><td><a href="#DateID">Date</a></td><td>封装日期方法</td></tr>
+<tr><td>7</td><td><a href="#TagsID">Tags</a></td><td>封装特殊标签方法</td></tr>
+</table>
+<!-- 1.Object：封装对象方法
+2.Dict:封装字典方法
+3.Page:封装分页方法
+4.Model:封装弹出框方法
+5.Validate:封装验证方法
+6.Date:封装日期方法
+7.Tags:封装特殊标签方法 -->
+<!-- </pre> -->
+<h2 id='ObjectID'>1.JEEGEM.Object</h2>
+<pre class="prettyprint perl">
+JEEGEM.Object.notNull(obj)
+断某对象不为空..返回true 否则 false
+JEEGEM.Object.notEmpty(obj)
+判断某对象不为空..返回obj 否则 ""
+</pre>
+<a href='#tableID'>返回顶部</a>
+<h2 id='DictID'>2.JEEGEM.Dict</h2>
+<pre class="prettyprint perl">
+/*
+ * ids   对应id值(多个逗号分隔)
+ * keys  对应key值(多个逗号分隔)
+ * type  (可选)1.请选择，2.自定义数组。默认不填
+ * dfstr (可选)自定义数组
+ */
+JEEGEM.Dict.setSelect(ids,keys,type,dfstr)
+根据字典去数据库寻找值填充select选择框
+</pre>
+<a href='#tableID'>返回顶部</a>
+<h2 id='PageID'>3.JEEGEM.Page</h2>
+<pre class="prettyprint perl">
+/*
+ *设置分页方法
+ *formId 分页参数Form的Id
+ *pageId 分页位置Id
+ *pagesize 分页显示数量
+ *pagenum 页码
+ *totalCount 数据总数
+ *fun 获得数据方法名
+*/
+JEEGEM.Page.setPage(formId,pageId,pagesize,pagenum,totalCount,fun)
+/*
+ *跳转分页
+ *formId 分页参数Form的Id
+ *num 页码
+ *JpFun 跳转方法
+ */
+JEEGEM.Page.jump(formId,pagenum,JpFun)
+/*
+ *设置分页单个显示数量
+ *formId 分页参数Form的Id
+ *size 显示数量
+ *JpFun 跳转方法
+ */
+JEEGEM.Page.setSize(formId,size,JpFun)
+/*
+ *自定义跳转分页
+ *formId 分页参数Form的Id
+ *pageId 分页Id值
+ *JpFun 跳转方法
+*/
+JEEGEM.Page.jumpCustom(formId,pageId,leng,JpFun)
+</pre>
+<a href='#tableID'>返回顶部</a>
+<h2 id='ModelID'>4.JEEGEM.Model</h2>
+<pre class="prettyprint perl">
+/*
+ *loading框
+ *Str loading的语句
+ */
+JEEGEM.Model.loading(Str)
+/*
+ *关闭loading框
+ *Str 
+ */
+JEEGEM.Model.loadingClose()
+/*
+ *确认框
+ *fun 确认调用后执行方法名
+ *Str 询问语句可以是html格式
+ */
+JEEGEM.Model.confirm(fun,Str)
+/*
+ *提示信息框
+ *Str 语句可以是html格式（如：&lt;span&gt;保存成功&lt;/span&gt;）
+ *fun 方法名可带参数 例如：a('xx') 
+ */
+JEEGEM.Model.info(Str,fun)
+/*
+ *提示错误框
+ *Str 语句可以是html格式（如：&lt;span&gt;保存成功&lt;/span&gt;）
+ */
+JEEGEM.Model.error(Str)
+</pre>
+<a href='#tableID'>返回顶部</a>
+<h2 id='ValidateID'>5.JEEGEM.Validate</h2>
+<pre class="prettyprint perl">
+/*
+ *判断是否为空有提示和返回值
+ *是空返回true，不是空返回false
+ *id
+ *side 提示窗显示位置  1，2，3，4 分别代表 上右下左 默认为1（上） 可选
+ */
+JEEGEM.Validate.isnull(id,side)(新版取消)
+/*
+ *表单验证
+ *fromId
+ *使用方法 在表单必须使用JEEGEMValidate属性
+ *required :必要字段
+ *date     :日期
+ *datetime :日期+时间
+ */
+JEEGEM.Validate.form=function(fromId,side)
+/*
+ *判断是否是电子邮箱
+ *是返回true，不是返回false
+ */
+JEEGEM.Validate.isEmail(email)
+/*
+ *判断是否是日期
+ *是返回true，不是返回false
+ */
+JEEGEM.Validate.isDate(date)
+/*
+ *判断是否是日期时间
+ *是返回true，不是返回false
+ */
+JEEGEM.Validate.isDatetime(datetime)
+</pre>
+<a href='#tableID'>返回顶部</a>
+<h2 id='DateID'>6.JEEGEM.Date</h2>
+<pre class="prettyprint perl">
+/*
+ *时间格式化(默认)
+ *time 时间
+ */
+JEEGEM.Date.Default(time)
+/*
+ *时间格式化
+ *time 时间
+ *fmt  格式
+*/
+JEEGEM.Date.Format(time,fmt)
+</pre>
+<a href='#tableID'>返回顶部</a>
+<h2 id='TagsID'>7.JEEGEM.Tags</h2>
+<pre class="prettyprint perl">
+/*
+ *设置选择框1或0值
+ *class是isValidCheckbox的选择框Yes或No，value设为1或0
+ *formId form的Id
+ */
+JEEGEM.Tags.isValid(formId)
+</pre>
+<a href='#tableID'>返回顶部</a>
+</body>
+</html>

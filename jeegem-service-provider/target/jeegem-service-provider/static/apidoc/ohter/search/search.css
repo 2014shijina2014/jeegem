@@ -1,0 +1,99 @@
+@import "../reset.css";
+@import url(http://fonts.useso.com/css?family=BenchNine);
+
+
+html, body {
+	height:auto;
+}
+
+
+
+body {
+	min-width: 300px;
+	color: #adadad;
+	background-color: #fff;
+}
+#search-results{
+    background: #fff;
+	padding:0px 10px 0px 5px;
+	overflow:hidden;
+	color: #615f5f;
+    font: 300 14px/20px 'Open Sans', sans-serif;
+
+}
+
+
+h3 {
+	font-size: 30px;
+	line-height: 30px;
+	padding-top: 51px;
+	margin-bottom: 20px;
+}
+
+
+#search-results iframe html{
+	border:none;
+}
+#search-results iframe {
+	min-width:300px;
+}
+
+
+.search_link {
+	font: 30px/30px 'BenchNine', sans-serif;
+	padding-top: 0px;
+	display: inline-block;
+	padding-left: 5px;
+	margin-bottom: 10px;
+	text-shadow: none;
+	color: #383636;
+
+}
+
+.search_link:hover {
+	text-decoration: underline;
+}
+
+h4 {
+margin-left: 0px;	
+}
+
+
+ol.search_list {
+	list-style-type:none;
+	counter-reset: ol;
+	padding-left: 0;
+	margin-left: 15px;
+}
+ol.search_list li:before {
+content: counter(ol) ".";
+counter-increment: ol;
+float:left;
+display:block;
+width:20px;
+text-align:right;	
+padding-right:10px;
+margin:8px 0px 0 -40px
+}
+ol.search_list li {
+	padding-bottom:20px;
+	margin-left:15px;
+	background: none !important;
+}
+span.match {
+	font-size:11px;
+	display:block;
+	text-decoration: underline;
+
+	
+}
+span.search {
+	text-decoration: underline;
+
+}
+.search_link{
+	text-decoration: none;
+}
+.search_link:hover{
+	text-decoration: underline;
+}

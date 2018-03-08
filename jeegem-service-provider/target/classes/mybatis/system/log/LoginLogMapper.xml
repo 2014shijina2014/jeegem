@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeegem.repository.system.log.LoginLogDao">
+	<!-- com.jeegem.entity.system.log.LoginLog -->
+ 	<resultMap id="base" type="LoginLog" ></resultMap>
+ 	<select id="findByPage"  resultMap="base" parameterType="LoginLog">
+       SELECT t.id,t.accountId,t.loginTime,t.loginIP,jba.loginName as aName FROM jeegem_BASE_LOGIN_LOG t
+       LEFT JOIN jeegem_base_account jba
+       ON jba.id=t.accountId
+       WHERE 1=1 
+       <if test="param.keyWord!= null">
+        	AND (
+        	t.loginIP LIKE CONCAT('%',#{param.keyWord},'%')    
+        	OR jba.loginName LIKE CONCAT('%',#{param.keyWord},'%')
+        	)
+       </if>
+        <if test="param.beginTime != null and param.beginTime!=''  ">
+       <![CDATA[
+        	AND DATE_FORMAT(t.loginTime, '%Y-%m-%d') >=  DATE_FORMAT(#{param.beginTime}, '%Y-%m-%d')
+       ]]>  
+       </if> 
+       <if test="param.endTime != null and param.endTime!=''  ">
+       <![CDATA[
+        	AND DATE_FORMAT(t.loginTime, '%Y-%m-%d') <=  DATE_FORMAT(#{param.endTime}, '%Y-%m-%d')
+       ]]>  
+       </if> 
+       ORDER BY t.loginTime desc
+    </select>  
+    <select id="count"  resultType="int" parameterType="LoginLog">
+       SELECT count(*) FROM jeegem_BASE_LOGIN_LOG t WHERE 1=1 
+    </select>        
+ 	<insert id="insert" parameterType="LoginLog">	
+ 	<![CDATA[
+	INSERT INTO jeegem_BASE_LOGIN_LOG(
+	id,accountId,loginTime,loginIP
+	) VALUES (
+	#{id},#{accountId},#{loginTime},#{loginIP}
+	)
+	]]>  
+	</insert>
+	<delete id="deleteBatch" parameterType ="java.util.List">
+	DELETE FROM jeegem_BASE_LOGIN_LOG WHERE id in(
+		<foreach item="o" collection="list" open="" separator="," close="" >
+			#{o.id}
+		</foreach>
+		)
+	</delete>
+</mapper>

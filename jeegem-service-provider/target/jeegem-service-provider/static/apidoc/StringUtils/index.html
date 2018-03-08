@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>JEEGEM</title>
+<link rel="stylesheet" href="../commonStyle/css/style.css" />
+</head>
+<body>
+<div class="logo"><img src="logo.png"></div><br/>
+<h2>StringUtils介绍：</h2>
+<pre class="prettyprint perl">
+StringUtils方法的操作对象是java.lang.String类型的对象，是JDK提供的String类型操作方法的补充，并且是null安全的(即如果输入参数String为null则不会抛出NullPointerException，而是做了相应处理，例如，如果输入为null则返回也是null等，具体可以查看源代码)。
+除了构造器，StringUtils中一共有130多个方法，并且都是static的，所以我们可以这样调用StringUtils.xxx()
+</pre>
+
+<h2 id='ObjectID'>StringUtils方法</h2>
+<pre class="prettyprint perl">
+1. public static boolean isEmpty(String str)
+判断某字符串是否为空，为空的标准是str==null或str.length()==0
+下面是StringUtils判断是否为空的示例：
+StringUtils.isEmpty(null) = true
+StringUtils.isEmpty("") = true
+StringUtils.isEmpty(" ") = false //注意在StringUtils中空格作非空处理
+StringUtils.isEmpty(" ") = false
+StringUtils.isEmpty("bob") = false
+StringUtils.isEmpty(" bob ") = false
+
+2. public static boolean isNotEmpty(String str)
+判断某字符串是否非空，等于!isEmpty(String str)
+下面是示例：
+StringUtils.isNotEmpty(null) = false
+StringUtils.isNotEmpty("") = false
+StringUtils.isNotEmpty(" ") = true
+StringUtils.isNotEmpty(" ") = true
+StringUtils.isNotEmpty("bob") = true
+StringUtils.isNotEmpty(" bob ") = true
+
+3. public static boolean isBlank(String str)
+判断某字符串是否为空或长度为0或由空白符(whitespace)构成
+下面是示例：
+StringUtils.isBlank(null) = true
+StringUtils.isBlank("") = true
+StringUtils.isBlank(" ") = true
+StringUtils.isBlank(" ") = true
+StringUtils.isBlank("/t /n /f /r") = true //对于制表符、换行符、换页符和回车符StringUtils.isBlank()均识为空白符
+StringUtils.isBlank("/b") = false //"/b"为单词边界符
+StringUtils.isBlank("bob") = false
+StringUtils.isBlank(" bob ") = false
+
+4. public static boolean isNotBlank(String str)
+判断某字符串是否不为空且长度不为0且不由空白符(whitespace)构成，等于!isBlank(String str)
+下面是示例：
+StringUtils.isNotBlank(null) = false
+StringUtils.isNotBlank("") = false
+StringUtils.isNotBlank(" ") = false
+StringUtils.isNotBlank(" ") = false
+StringUtils.isNotBlank("/t /n /f /r") = false
+StringUtils.isNotBlank("/b") = true
+StringUtils.isNotBlank("bob") = true
+StringUtils.isNotBlank(" bob ") = true
+其他方法介绍：
+5. public static String trim(String str)
+去掉字符串两端的控制符(control characters, char <= 32),如果输入为null则返回null
+下面是示例：
+StringUtils.trim(null) = null
+StringUtils.trim("") = ""
+StringUtils.trim(" ") = ""
+StringUtils.trim(" /b /t /n /f /r ") = ""
+StringUtils.trim(" /n/tss /b") = "ss"
+StringUtils.trim(" d d dd ") = "d d dd"
+StringUtils.trim("dd ") = "dd"
+StringUtils.trim(" dd ") = "dd"
+
+6. public static String trimToNull(String str)
+去掉字符串两端的控制符(control characters, char <= 32),如果变为null或""，则返回null
+下面是示例：
+StringUtils.trimToNull(null) = null
+StringUtils.trimToNull("") = null
+StringUtils.trimToNull(" ") = null
+StringUtils.trimToNull(" /b /t /n /f /r ") = null
+StringUtils.trimToNull(" /n/tss /b") = "ss"
+StringUtils.trimToNull(" d d dd ") = "d d dd"
+StringUtils.trimToNull("dd ") = "dd"
+StringUtils.trimToNull(" dd ") = "dd"
+
+7. public static String trimToEmpty(String str)
+去掉字符串两端的控制符(control characters, char <= 32),如果变为null或""，则返回""
+下面是示例：
+StringUtils.trimToEmpty(null) = ""
+StringUtils.trimToEmpty("") = ""
+StringUtils.trimToEmpty(" ") = ""
+StringUtils.trimToEmpty(" /b /t /n /f /r ") = ""
+StringUtils.trimToEmpty(" /n/tss /b") = "ss"
+StringUtils.trimToEmpty(" d d dd ") = "d d dd"
+StringUtils.trimToEmpty("dd ") = "dd"
+StringUtils.trimToEmpty(" dd ") = "dd"
+
+8. public static String strip(String str)
+去掉字符串两端的空白符(whitespace)，如果输入为null则返回null
+下面是示例(注意和trim()的区别)：
+StringUtils.strip(null) = null
+StringUtils.strip("") = ""
+StringUtils.strip(" ") = ""
+StringUtils.strip(" /b /t /n /f /r ") = "/b"
+StringUtils.strip(" /n/tss /b") = "ss /b"
+StringUtils.strip(" d d dd ") = "d d dd"
+StringUtils.strip("dd ") = "dd"
+StringUtils.strip(" dd ") = "dd"
+
+9. public static String stripToNull(String str)
+去掉字符串两端的空白符(whitespace)，如果变为null或""，则返回null
+下面是示例(注意和trimToNull()的区别)：
+StringUtils.stripToNull(null) = null
+StringUtils.stripToNull("") = null
+StringUtils.stripToNull(" ") = null
+StringUtils.stripToNull(" /b /t /n /f /r ") = "/b"
+StringUtils.stripToNull(" /n/tss /b") = "ss /b"
+StringUtils.stripToNull(" d d dd ") = "d d dd"
+StringUtils.stripToNull("dd ") = "dd"
+StringUtils.stripToNull(" dd ") = "dd"
+
+10. public static String stripToEmpty(String str)
+去掉字符串两端的空白符(whitespace)，如果变为null或""，则返回""
+下面是示例(注意和trimToEmpty()的区别)：
+StringUtils.stripToNull(null) = ""
+StringUtils.stripToNull("") = ""
+StringUtils.stripToNull(" ") = ""
+StringUtils.stripToNull(" /b /t /n /f /r ") = "/b"
+StringUtils.stripToNull(" /n/tss /b") = "ss /b"
+StringUtils.stripToNull(" d d dd ") = "d d dd"
+StringUtils.stripToNull("dd ") = "dd"
+StringUtils.stripToNull(" dd ") = "dd"
+</pre>
+<a href='#tableID'>返回顶部</a>
+
+</body>
+</html>

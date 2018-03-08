@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeegem.repository.weixin.user.WxFollowerDao">
+	<!-- com.jeegem.entity.weixin.user.WxFollower  -->
+ 	<resultMap id="base" type="WxFollower" ></resultMap>
+ 	<select id="find"  resultMap="base" parameterType="WxFollower">
+       SELECT t.* FROM WX_FOLLOWER t WHERE 1=1 
+       <if test="openid != null and openid !='' ">
+        	AND t.openid=#{openid}
+       </if>
+    </select> 
+ 	<select id="findByPage"  resultMap="base" parameterType="WxFollower">
+       SELECT t.* FROM WX_FOLLOWER t WHERE 1=1 
+       <if test="param.subscribe!= null">
+        	AND t.subscribe=#{param.subscribe}
+       </if>
+       <if test="param.keyWord!= null and param.keyWord !='' ">
+        	AND t.nickname LIKE CONCAT('%',#{param.keyWord},'%')
+       </if>
+       order by t.subscribeTime desc
+    </select>  
+    <select id="count"  resultType="int" parameterType="WxFollower">
+       SELECT count(*) FROM WX_FOLLOWER t WHERE 1=1 
+    </select>  
+    <insert id="insertFollowers" parameterType="java.util.List">	
+		INSERT INTO WX_FOLLOWER
+		(openid,
+		subscribe,nickname,sex,
+		city,country,province,
+		language,headimgurl,
+		subscribeTime,
+		unionid,remark,groupid) 
+		VALUES 
+		<foreach item="o" collection="list"  separator="," >
+		(#{o.openid},#{o.subscribe},
+		#{o.nickname},#{o.sex},
+		#{o.city},#{o.country},#{o.province},
+		#{o.language},#{o.headimgurl},
+		#{o.subscribeTime},
+		#{o.unionid},#{o.remark},#{o.groupid})
+		</foreach>
+	</insert>      
+ 	<insert id="insert"  parameterType="WxFollower">	
+ 	<![CDATA[
+	INSERT INTO WX_FOLLOWER(
+	openid,
+	subscribe,nickname,sex,
+	city,country,province,
+	language,headimgurl,
+	subscribeTime,
+	unionid,remark,groupid
+	) VALUES (
+	#{openid},#{subscribe},
+	#{nickname},#{sex},
+	#{city},#{country},#{province},
+	#{language},#{headimgurl},
+	#{subscribeTime},
+	#{unionid},#{remark},#{groupid}
+	)
+	]]>  
+	</insert>
+	<delete id="delete" parameterType="SysDict">
+	DELETE FROM WX_FOLLOWER WHERE 1=1 
+	AND openid=#{openid} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.util.List">
+	DELETE FROM WX_FOLLOWER 
+	WHERE id IN(
+		<foreach item="o" collection="list" open="" separator="," close="" >
+			#{o.openid}
+		</foreach>
+		)
+	</delete>
+	<delete id="clearFollower" >
+	DELETE FROM WX_FOLLOWER 
+	</delete>
+	<update id="update" parameterType="SysDict">
+		UPDATE WX_FOLLOWER 
+		SET remark=#{remark}
+		WHERE 
+			openid=#{openid}
+	</update>	
+</mapper>

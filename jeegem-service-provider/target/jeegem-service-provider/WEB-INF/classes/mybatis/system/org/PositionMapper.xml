@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeegem.repository.system.org.PositionDao">
+	<!-- com.jeegem.entity.system.org.Org -->
+	<!-- com.jeegem.entity.system.org.Position -->
+    <resultMap id="baseOrg" type="BaseOrg"></resultMap>
+    <resultMap id="basePos" type="BasePos"></resultMap>
+    <!--  com.jeegem.entity.system.account.Account -->
+    <resultMap id="baseAccount" type="BaseAccount">
+      <id column="ID" jdbcType="VARCHAR" property="accountId"/>
+    </resultMap> 
+    <resultMap id="ZNodes" type="com.jeegem.common.utils.tree.entity.ZNodes"></resultMap>
+	<select id="find"  resultMap="basePos" parameterType="basePos">
+       SELECT t.* FROM jeegem_BASE_POSITION t WHERE 1=1 
+       <if test="id != null and id!='' ">
+        	AND t.id=#{id}
+       </if>
+    </select> 
+    <select id="findByPage"  resultMap="basePos" parameterType="basePos">
+       SELECT t.* FROM jeegem_BASE_POSITION t WHERE 1=1
+       <if test="param.keyWord!= null and param.keyWord!=''">
+        	AND (t.name like CONCAT('%',#{param.keyWord},'%') )
+       </if>
+       <if test="param.orgId!= null and param.orgId!=''">
+        	AND t.orgId=#{param.orgId}
+       </if>
+       ORDER BY t.createTime
+    </select>
+     <select id="findAllPosByPage"  resultMap="basePos" parameterType="basePos">
+       SELECT t.* FROM jeegem_BASE_POSITION t WHERE 1=1
+       <if test="param.keyWord!= null and param.keyWord!=''">
+        	AND (t.name like CONCAT('%',#{param.keyWord},'%') )
+       </if>
+        <if test="param.allOrgIds!= null and param.allOrgIds!=''">
+        	AND t.orgId IN (${param.allOrgIds})
+      </if>
+       ORDER BY t.createTime
+    </select>    
+     <select id="count"  resultType="int" parameterType="basePos">
+       SELECT count(*) FROM jeegem_BASE_POSITION t WHERE 1=1 
+    </select>  
+    <insert id="insert"  parameterType="basePos">	
+ 	<![CDATA[
+	INSERT INTO jeegem_BASE_POSITION(id,orgId,name,type,description,createTime) 
+	VALUES (#{id},#{orgId},#{name},#{type},#{description},#{createTime})
+	]]>  
+	</insert>  
+	<delete id="delete" parameterType="basePos">
+	DELETE FROM jeegem_BASE_POSITION  
+	WHERE id=#{id} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.util.List">
+	DELETE FROM jeegem_BASE_POSITION 
+	WHERE id in(
+		<foreach item="o" collection="list" open="" separator="," close="" >
+			#{o.id}
+		</foreach>
+		)
+	</delete>
+	<update id="update" parameterType="basePos">
+		UPDATE jeegem_BASE_POSITION 
+		SET name =#{name},
+			orgId =#{orgId},
+		    type =#{type},
+			description=#{description},
+			updateTime =#{updateTime}
+		WHERE id=#{id}
+	</update>	
+	<select id="getOrgAndPositionTree" resultMap="ZNodes" parameterType="String">
+		SELECT jbo.id,
+			   jbo.pId,
+			   CONCAT('组织:',jbo.name) as name,
+			   'o' as other 
+		FROM jeegem_BASE_ORG jbo
+		UNION ALL 
+		SELECT CONCAT('pos',jbp.id) as id,
+			   jbp.orgId as pId,
+			   CONCAT('职务:',jbp.name) as name,
+			   'p' as other 
+		FROM jeegem_BASE_POSITION jbp
+    </select> 
+    
+        <!-- 上级机构树 -->
+    <select id="getPreOrgTree" resultMap="ZNodes" parameterType="String">
+       SELECT t.id as id,
+	   		  t.name as name,
+	   		  t.pId as pId
+	   FROM jeegem_BASE_ORG t
+       ORDER BY t.id,t.name
+    </select> 
+    <insert id="insertAccountPosition" parameterType="java.util.List">
+		INSERT INTO jeegem_BASE_ACCOUNT_POSITION(accountId,posId)  
+		VALUES 
+		<foreach item="o" collection="list"  separator="," >
+			(#{o.accountId},#{o.posId})
+		</foreach>
+	</insert>
+	<delete id="deleteAccPosByAccId" parameterType="String">
+		DELETE FROM jeegem_BASE_ACCOUNT_POSITION  
+		WHERE accountId=#{accountId} 
+	</delete>
+	<delete id="deleteBatchAccPosByAccId" parameterType="java.util.List">
+	DELETE FROM jeegem_BASE_ACCOUNT_POSITION 
+	WHERE accountId in(
+		<foreach item="o" collection="list" open="" separator="," close="" >
+			#{o.accountId}
+		</foreach>
+		)
+	</delete>
+    <delete id="deleteAccPosByPosId" parameterType="String">
+		DELETE FROM jeegem_BASE_ACCOUNT_POSITION  
+		WHERE posId=#{posId} 
+	</delete>
+	<delete id="deleteBatchAccPosByPosId" parameterType="java.util.List">
+	DELETE FROM jeegem_BASE_ACCOUNT_POSITION 
+	WHERE posId in(
+		<foreach item="o" collection="list" open="" separator="," close="" >
+			#{o.id}
+		</foreach>
+		)
+	</delete>
+	<select id="findArrangeAccByPage"  resultMap="baseAccount" parameterType="basePos">
+	    SELECT jba.id,jba.loginName,jba.name,jba.roleId,jbr.name as roleName,jba.description FROM jeegem_BASE_ACCOUNT jba 
+	    LEFT JOIN jeegem_BASE_ROLE jbr
+        ON jbr.id=jba.roleId
+	    WHERE NOT EXISTS (SELECT jbap.accountId FROM jeegem_BASE_ACCOUNT_POSITION jbap 
+						WHERE jba.id=jbap.accountId AND jbap.posId=#{param.id} )
+		<if test="param.keyWord!= null and param.keyWord!=''">
+        	AND (jba.name LIKE CONCAT('%',#{param.keyWord},'%') 
+        	OR	jba.loginName LIKE CONCAT('%',#{param.keyWord},'%'))
+        </if>
+	 	ORDER BY jba.createTime
+    </select>  
+    <select id="findPosByPage"  resultMap="baseAccount" parameterType="basePos">
+	    SELECT jba.id,jba.loginName,jba.name,jba.roleId,jbr.name as roleName,jba.description FROM jeegem_BASE_ACCOUNT jba 
+	    LEFT JOIN jeegem_BASE_ROLE jbr
+        ON jbr.id=jba.roleId
+	    WHERE 1=1
+		<if test="param.keyWord!= null and param.keyWord!=''">
+        	AND (jba.name LIKE CONCAT('%',#{param.keyWord},'%') 
+        	OR	jba.loginName LIKE CONCAT('%',#{param.keyWord},'%'))
+        </if>
+        AND EXISTS (SELECT jbap.accountId FROM jeegem_BASE_ACCOUNT_POSITION jbap 
+						WHERE jba.id=jbap.accountId AND jbap.posId=#{param.id} )	
+	 	ORDER BY jba.createTime
+    </select>  
+    <select id="findByOrgId" resultMap="basePos" parameterType="basePos">
+       SELECT t.* FROM jeegem_BASE_POSITION t WHERE t.orgId=#{orgId}
+    </select> 
+</mapper>

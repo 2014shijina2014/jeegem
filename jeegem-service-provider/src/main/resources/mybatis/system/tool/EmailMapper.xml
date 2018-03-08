@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jeegem.repository.system.tool.EmailDao">
+	<!-- com.jeegem.entity.system.tool.Email  -->
+ 	<resultMap id="base" type="ToolEmail" ></resultMap>
+ 	<select id="find"  resultMap="base" parameterType="ToolEmail">
+       SELECT t.* FROM jeegem_TOOL_EMAIL t WHERE 1=1 
+       <if test="id != null and id!='' ">
+        	and t.id=#{id}
+       </if>
+    </select> 
+ 	<select id="findByPage"  resultMap="base" parameterType="ToolEmail">
+       SELECT t.id,t.subject,t.toList,t.createTime FROM jeegem_TOOL_EMAIL t WHERE 1=1 
+       <if test="param.keyWord!= null">
+        	AND (
+        	t.toList LIKE CONCAT('%',#{param.keyWord},'%')    
+        	OR t.subject LIKE CONCAT('%',#{param.keyWord},'%')
+        	)
+       </if>
+        <if test="param.id!= null and param.id!='' ">
+        	AND t.id=#{param.id}
+       </if>
+       order by t.createTime desc
+    </select>  
+    <select id="count"  resultType="int" parameterType="ToolEmail">
+       SELECT count(*) FROM jeegem_TOOL_EMAIL t WHERE 1=1 
+    </select>        
+ 	<insert id="insert"  parameterType="ToolEmail">	
+ 	<![CDATA[
+	INSERT INTO jeegem_TOOL_EMAIL(
+	id,subject,body,toList,ccList,createTime
+	) VALUES (
+	#{id},#{subject},#{body},#{toList},#{ccList},#{createTime}
+	)
+	]]>  
+	</insert>
+	<delete id="delete" parameterType="ToolEmail">
+	DELETE FROM jeegem_TOOL_EMAIL  WHERE 1=1 
+	AND id=#{id} 
+	</delete>
+	<delete id="deleteBatch" parameterType="java.util.List">
+	DELETE FROM jeegem_TOOL_EMAIL 
+	WHERE id IN(
+		<foreach item="o" collection="list" open="" separator="," close="" >
+			#{o.id}
+		</foreach>
+		)
+	</delete>
+	<update id="update" parameterType="ToolEmail">
+		UPDATE jeegem_TOOL_EMAIL 
+		SET subject  =#{subject}
+		WHERE id=#{id}
+	</update>	
+</mapper>

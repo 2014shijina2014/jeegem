@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Apache Shiro</title>
+<link rel="stylesheet" href="../commonStyle/css/style.css" />
+</head>
+<body>
+<div class="logo"><img src="logo.png"></div><br/>
+<h2>关于Shiro的标签应用：</h2>
+<pre class="prettyprint xml">
+	<span class="tag">&lt;<span class="title">shiro:authenticated</span>&gt;</span> 登录之后
+	<span class="tag">&lt;<span class="title">shiro:notAuthenticated</span>&gt;</span> 不在登录状态时
+	<span class="tag">&lt;<span class="title">shiro:guest</span>&gt;</span> 用户在没有RememberMe时
+	<span class="tag">&lt;<span class="title">shiro:user</span>&gt;</span> 用户在RememberMe时
+	<span class="tag">&lt;<span class="title">shiro:hasAnyRoles</span> <span class="attribute">name</span>=<span class="value">"abc,123"</span> &gt;</span> 在有abc或者123角色时
+	<span class="tag">&lt;<span class="title">shiro:hasRole</span> <span class="attribute">name</span>=<span class="value">"abc"</span>&gt;</span> 拥有角色abc
+	<span class="tag">&lt;<span class="title">shiro:lacksRole</span> <span class="attribute">name</span>=<span class="value">"abc"</span>&gt;</span> 没有角色abc
+	<span class="tag">&lt;<span class="title">shiro:hasPermission</span> <span class="attribute">name</span>=<span class="value">"abc"</span>&gt;</span> 拥有权限abc
+	<span class="tag">&lt;<span class="title">shiro:lacksPermission</span> <span class="attribute">name</span>=<span class="value">"abc"</span>&gt;</span> 没有权限abc
+	<span class="tag">&lt;<span class="title">shiro:principal</span>&gt;</span> 显示用户登录名
+</pre>
+
+<h2>备注：Shiro权限管理的过滤器解释：</h2>
+<pre class="prettyprint perl">
+	默认过滤器(<span class="number">10</span>个) 
+	anon -- org.apache.shiro.web.filter.authc.AnonymousFilter
+	authc -- org.apache.shiro.web.filter.authc.FormAuthenticationFilter
+	authcBasic -- org.apache.shiro.web.filter.authc.BasicHttpAuthenticationFilter
+	perms -- org.apache.shiro.web.filter.authz.PermissionsAuthorizationFilter
+	port -- org.apache.shiro.web.filter.authz.PortFilter
+	rest -- org.apache.shiro.web.filter.authz.HttpMethodPermissionFilter
+	roles -- org.apache.shiro.web.filter.authz.RolesAuthorizationFilter
+	ssl -- org.apache.shiro.web.filter.authz.SslFilter
+	user -- org.apache.shiro.web.filter.authc.UserFilter
+	logout -- org.apache.shiro.web.filter.authc.LogoutFilter
+			
+	anon:例子/admins/<span class="variable">**</span>=anon 没有参数，表示可以匿名使用。 
+	authc:例如/admins/user/<span class="variable">**</span>=authc表示需要认证(登录)才能使用，没有参数 
+	roles：例子/admins/user/<span class="variable">**</span>=roles[admin],参数可以写多个，多个时必须加上引号，并且参数之间用逗号分割，当有多个参数时，例如admins/user/
+	<span class="variable">**</span>=roles[<span class="string">"admin,guest"</span>],每个参数通过才算通过，相当于hasAllRoles()方法。 
+	perms：例子/admins/user/<span class="variable">**</span>=perms[user:add:<span class="variable">*]</span>,参数可以写多个，多个时必须加上引号，并且参数之间用逗号分割，例如/admins/user/<span class="variable">**</span>=perms[<span class="string">"user:add:<span class="variable">*,</span>user:modify:<span class="variable">*"</span>]，当有多个参数时必须每个参数都通过才通过，想当于isPermitedAll()方法。 
+	rest：例子/admins/user/<span class="variable">**</span>=rest[user],根据请求的方法，相当于/admins/user/<span class="variable">**</span>=perms[user:method] ,其中method为post，get，delete等。 
+	port：例子/admins/user/<span class="variable">**</span>=port[8081],当请求的url的端口不是8081是跳转到schemal://serverName:8081?queryString,其中schmal是协议http或https等，serverName是你访问的host,8081是url配置里port的端口，queryString是你访问的url里的？后面的参数。 
+	authcBasic：例如/admins/user/<span class="variable">**</span>=authcBasic没有参数表示httpBasic认证 
+	ssl:例子/admins/user/<span class="variable">**</span>=ssl没有参数，表示安全的url请求，协议为https 
+	user:例如/admins/user/<span class="variable">**</span>=user没有参数表示必须存在用户，当登入操作时不做检查</span>
+</pre>
+</body>
+</html>
