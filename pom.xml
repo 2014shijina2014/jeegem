@@ -11,7 +11,7 @@
 		<module>jeegem-web-admin</module>
 		<module>jeegem-core</module>
 		<module>jeegem-service</module>
-		<module>jeegem-service-provider</module>
+		<module>jeegem-provider-dubbo</module>
     <module>jeegem-dao</module>
   </modules>
 	<properties>
