@@ -52,6 +52,6 @@
 
 	<build>
 		<finalName>jeegem-web-admin</finalName>
-
+		
 	</build>
 </project>

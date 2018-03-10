@@ -1,0 +1,25 @@
+
+linux 下
+
+在更换Druid连接池前，连接URL后面添加了?useUnicode=true&amp;characterEncoding=utf8
+
+中文正常，在更换后出现乱码问题，于是追踪发现在Action中还是正常，在入库的时候异常了。
+
+于是修改MySQL 配置文件。
+
+vi /etc/my.cnf
+
+在[client]下添加
+
+default-character-set=utf8
+
+[mysqld]下添加
+
+character_set_server=utf8
+ init_connect= SET NAMES utf8
+
+然后重启，乱码消失。
+
+
+对于编码设置其实要全部一致，IDE、项目编码、数据库连接、服务器(tomcat/jboss)、数据库本地配置、创建数据库都要一致。
+

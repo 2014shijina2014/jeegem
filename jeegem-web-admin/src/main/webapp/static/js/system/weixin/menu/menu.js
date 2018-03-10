@@ -269,9 +269,9 @@ function setForm(data){
 				for(var i=0;i<items.length;i++){
 					var item=items[i];			 
 					html+="<tr id='temtr"+itemNum+"' >";
-					html+="<td>"+jeegem.Object.notEmpty(item.title)+"</td>";
-					html+="<td>"+jeegem.Object.notEmpty(item.content)+"</td>";
-					html+="<td>"+jeegem.Object.notEmpty(item.url)+"</td>";
+					html+="<td>"+JEEGEM.Object.notEmpty(item.title)+"</td>";
+					html+="<td>"+JEEGEM.Object.notEmpty(item.content)+"</td>";
+					html+="<td>"+JEEGEM.Object.notEmpty(item.url)+"</td>";
 					if(JEEGEM.Object.notNull(item.picUrl)){
 						html+="<td class='center' ><img height='30' width='30' src='"+item.picUrl+"' ></td>";
 					}else{
@@ -285,7 +285,7 @@ function setForm(data){
 					html+="<li><a class='aBtnNoTD' onclick='editItem(&apos;"+itemNum+"&apos;)' title='修改' href='#'><i class='icon-edit color-blue bigger-120'></i></a></li>";
 					html+="<li><a class='aBtnNoTD' onclick='delItem(&apos;"+itemNum+"&apos;)' title='删除' href='#'><i class='icon-remove-sign color-red bigger-120'></i></a></li>";	
 					html+="</ul></div>";		
-					html+="<input type='hidden' name='items'id='item"+itemNum+"' value='"+itemNum+"' itemTitle='"+jeegem.Object.notEmpty(item.title)+"' itemUrl='"+jeegem.Object.notEmpty(item.url)+"' itemSort='"+item.sort+"' itemPicUrl='"+jeegem.Object.notEmpty(item.picUrl)+"' itemContent='"+jeegem.Object.notEmpty(item.content)+"'  >";			
+					html+="<input type='hidden' name='items'id='item"+itemNum+"' value='"+itemNum+"' itemTitle='"+JEEGEM.Object.notEmpty(item.title)+"' itemUrl='"+JEEGEM.Object.notEmpty(item.url)+"' itemSort='"+item.sort+"' itemPicUrl='"+JEEGEM.Object.notEmpty(item.picUrl)+"' itemContent='"+JEEGEM.Object.notEmpty(item.content)+"'  >";			
 					html+="</td>";
 					html+="</tr>";
 					itemNum++;

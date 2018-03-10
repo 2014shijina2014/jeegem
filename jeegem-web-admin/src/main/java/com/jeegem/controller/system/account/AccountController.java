@@ -19,7 +19,30 @@ import com.jeegem.common.utils.tree.entity.ZNodes;
 import com.jeegem.controller.base.BaseController;
 import com.jeegem.entity.system.account.Account;
 import com.jeegem.service.system.account.AccountService;
-
+/**
+ * 
+ * <p>
+ * Title: AccountController.java
+ * </p>
+ * 
+ * <p>
+ * Description: 
+ * </p>
+ * 
+ * <p>
+ * Copyright: Copyright (c) 2018
+ * </p>
+ * 
+ * <p>
+ * Company: www.jeegem.com
+ * </p>
+ * 
+ * @author JeeGem
+ * 
+ * @date 2018年3月11日 上午12:02:45
+ * 
+ * @version JeeGem V3.0
+ */
 @Controller
 @RequestMapping("/backstage/account/")
 public class AccountController extends BaseController<Account>{

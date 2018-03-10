@@ -193,9 +193,9 @@ function getOrgList(init){
             		 html+="<tr>";
             		 html+="<td class='center'><label> <input type='checkbox' name='ids' value='"+l.id+"' class='ace' /> <span class='lbl'></span></label></td>";
             		 html+="<td class='center hidden-480'>"+(i+leng+1)+"</td>";
-            		 html+="<td class='center'>"+jeegem.Object.notEmpty(l.name)+"</td>";
-            		 html+="<td class='center'>"+jeegem.Object.notEmpty(l.type)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Object.notEmpty(l.description)+"</td>";
+            		 html+="<td class='center'>"+JEEGEM.Object.notEmpty(l.name)+"</td>";
+            		 html+="<td class='center'>"+JEEGEM.Object.notEmpty(l.type)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Object.notEmpty(l.description)+"</td>";
             		 var permitBtn=[{name:"查看职务",btnFun:"checkPos",icon:"icon-zoom-in color-purple"}
             		 				,{name:"修改职务",btnFun:"editPos",icon:"icon-edit color-blue"}
             		 				,{name:"删除职务",btnFun:"delPos",icon:"icon-remove-sign color-red"}];
@@ -222,7 +222,7 @@ function setPosForm(data){
 	var l=data.obj;
 	$("#auPosForm input[name$='id']").val(JEEGEM.Object.notEmpty(l.id));
 	$("#auPosForm input[name$='name']").val(JEEGEM.Object.notEmpty(l.name));
-	$("#auPosForm select[name$='type']").prop("value",jeegem.Object.notEmpty(l.type));
+	$("#auPosForm select[name$='type']").prop("value",JEEGEM.Object.notEmpty(l.type));
 	$("#auPosForm textarea[name$='description']").val(JEEGEM.Object.notEmpty(l.description));//描述
 	var treeObj = $.fn.zTree.getZTreeObj("preOrgTree");
 	var nodes =treeObj.getNodesByParam("id",l.orgId);
@@ -287,8 +287,8 @@ function loadArrangeAcc(init){
 	           		 html+="<tr>";
 	           		 html+="<td class='center'><label> <input type='checkbox' name='ids' value='"+l.accountId+"' class='ace' /> <span class='lbl'></span></label></td>";
 	           		 html+="<td class='center hidden-480'>"+(i+leng+1)+"</td>";
-	           		 html+="<td class='center'>"+jeegem.Object.notEmpty(l.loginName)+"</td>";
-	           		 html+="<td class='center'>"+jeegem.Object.notEmpty(l.name)+"</td>";
+	           		 html+="<td class='center'>"+JEEGEM.Object.notEmpty(l.loginName)+"</td>";
+	           		 html+="<td class='center'>"+JEEGEM.Object.notEmpty(l.name)+"</td>";
 	           		 html+="</tr>";		 
 	           	 } 
 	       		 $("#arrangeAccTable tbody").append(html);
@@ -318,9 +318,9 @@ function getPosList(init){
             		 html+="<tr>";
             		 html+="<td class='center'><label> <input type='checkbox' name='ids' value='"+l.accountId+"' class='ace' /> <span class='lbl'></span></label></td>";
             		 html+="<td class='center hidden-480'>"+(i+leng+1)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Object.notEmpty(l.loginName)+"</td>";
-            		 html+="<td class='center'>"+jeegem.Object.notEmpty(l.name)+"</td>";
-            		 html+="<td class='center'>"+jeegem.Object.notEmpty(l.roleName)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Object.notEmpty(l.loginName)+"</td>";
+            		 html+="<td class='center'>"+JEEGEM.Object.notEmpty(l.name)+"</td>";
+            		 html+="<td class='center'>"+JEEGEM.Object.notEmpty(l.roleName)+"</td>";
             		 var permitBtn=[{name:"移除人员职务",btnFun:"delAccPos",icon:"icon-remove-sign color-red"}];
             		 html+=JEEGEM.Tags.setFunction(l.accountId,permitBtn);
             		 html+="</tr>";		 

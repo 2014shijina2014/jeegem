@@ -65,14 +65,14 @@ $(function () {
 		var iconHidden=$(this).prop("class");
 		var colorHidden=$("#colorHidden").val();
 		$("#iconHidden").val(iconHidden);
-		$("#testIconId").prop("class",jeegem.Object.notEmpty(iconHidden)+" "+jeegem.Object.notEmpty(colorHidden)+" bigger-200 ");
+		$("#testIconId").prop("class",JEEGEM.Object.notEmpty(iconHidden)+" "+JEEGEM.Object.notEmpty(colorHidden)+" bigger-200 ");
 	});
 	//颜色选择
 	$("#iconDiv .iconColorSelect td").bind('click', function(){		
 		var colorHidden=$(this).prop("class");
 		var iconHidden=$("#iconHidden").val();
 		$("#colorHidden").val(colorHidden);
-		$("#testIconId").prop("class",jeegem.Object.notEmpty(iconHidden)+" "+jeegem.Object.notEmpty(colorHidden)+" bigger-200 ");
+		$("#testIconId").prop("class",JEEGEM.Object.notEmpty(iconHidden)+" "+JEEGEM.Object.notEmpty(colorHidden)+" bigger-200 ");
 	});
 	//层显示选择
 	$("#baseForm .widget-main button").bind('click', function(){		
@@ -124,24 +124,24 @@ function getbaseList(){
            		 html+=JEEGEM.Object.notNull(l.icon)?"<i class='"+l.icon+" menuicon'></i>":"";
            		 if(l.type=="1"){
            			 html+=JEEGEM.Object.notEmpty(l.name)+"</td>";
-           			 html+="<td class='left hidden-480'>"+jeegem.Object.notEmpty(l.resUrl)+"</td>";
+           			 html+="<td class='left hidden-480'>"+JEEGEM.Object.notEmpty(l.resUrl)+"</td>";
            		 }else if(l.type=="2"){
            			 html+= "<font color='blue'>功能：</font>";
            			 html+= JEEGEM.Object.notEmpty(l.name);
            			 html+="</td>";
-           			 html+="<td class='left hidden-480'>"+jeegem.Object.notEmpty(l.resUrl)+"</td>";
+           			 html+="<td class='left hidden-480'>"+JEEGEM.Object.notEmpty(l.resUrl)+"</td>";
            		 }else{
            			 html+= "<font color='orange'>按钮：</font>";
            			 html+= JEEGEM.Object.notEmpty(l.name);
            			 html+="</td>";
-           			 html+="<td class='left hidden-480'>"+jeegem.Object.notEmpty(l.resUrl)+"</td>";
+           			 html+="<td class='left hidden-480'>"+JEEGEM.Object.notEmpty(l.resUrl)+"</td>";
            		 }   
            		 if(l.isValid==1){
            			 html+="<td class='hidden-480'><span class='label label-sm label-success'>有效</span></td>";
            		 }else{
            			 html+="<td class='hidden-480'><span class='label label-sm arrowed-in'>无效</span></td>";
            		 }  
-           		 html+="<td class='left hidden-480'>"+jeegem.Object.notEmpty(l.description)+"</td>";      		
+           		 html+="<td class='left hidden-480'>"+JEEGEM.Object.notEmpty(l.description)+"</td>";      		
            		 html+=JEEGEM.Tags.setFunction(l.id,permitBtn);
            		 html+="</tr>";		 
            		 html=setNodes(l.id,"0",l.nodes,html,level,permitBtn);
@@ -182,24 +182,24 @@ function setNodes(id,parentid,nodes,html,level,permitBtn){
     		 html+=JEEGEM.Object.notNull(n.icon)?"<i class='"+n.icon+" menuicon'></i>":"";	
     		 if(n.type=="1"){
     			 html+=JEEGEM.Object.notEmpty(n.name)+"</td>";
-    			 html+="<td class='left hidden-480'>"+jeegem.Object.notEmpty(n.resUrl)+"</td>";
+    			 html+="<td class='left hidden-480'>"+JEEGEM.Object.notEmpty(n.resUrl)+"</td>";
     		 }else if(n.type=="2"){
     			 html+= "<font color='blue'>功能：</font>";
     			 html+= JEEGEM.Object.notEmpty(n.name);
     			 html+="</td>";
-    			 html+="<td class='left hidden-480'>"+jeegem.Object.notEmpty(n.resUrl)+"</td>";
+    			 html+="<td class='left hidden-480'>"+JEEGEM.Object.notEmpty(n.resUrl)+"</td>";
     		 }else{
     			 html+= "<font color='orange'>按钮：</font>";
     			 html+= JEEGEM.Object.notEmpty(n.name);			
     			 html+="</td>";
-    			 html+="<td class='left hidden-480'>"+jeegem.Object.notEmpty(n.resUrl)+"</td>";
+    			 html+="<td class='left hidden-480'>"+JEEGEM.Object.notEmpty(n.resUrl)+"</td>";
     		 }
     		 if(n.isValid==1){
     			 html+="<td class='hidden-480'><span class='label label-sm label-success'>有效</span></td>";
     		 }else{
     			 html+="<td class='hidden-480'><span class='label label-sm arrowed-in'>无效</span></td>";
     		 }	 
-    		 html+="<td class='left hidden-480'>"+jeegem.Object.notEmpty(n.description)+"</td>";
+    		 html+="<td class='left hidden-480'>"+JEEGEM.Object.notEmpty(n.description)+"</td>";
     		 html+=JEEGEM.Tags.setFunction(n.id,permitBtn);
     		 html+="</tr>";	
     		 //递归循环	 
@@ -348,11 +348,11 @@ function setForm(data){
 	$("#auForm input[name$='sort']").val(JEEGEM.Object.notEmpty(l.sort));//排序
 	$("#auForm input[name$='layer']").val(JEEGEM.Object.notEmpty(l.layer));
 	$("#selectlayer button").removeClass("btn-success").addClass("hide");
-	$("#selectlayer button[value$='"+jeegem.Object.notEmpty(l.layer)+"']").addClass("btn-success");
+	$("#selectlayer button[value$='"+JEEGEM.Object.notEmpty(l.layer)+"']").addClass("btn-success");
 	if(JEEGEM.Object.notNull(parentId) && parentId=='0'){
 		$("#selectlayer button").removeClass("hide");
 	}else{
-		$("#selectlayer button[value$='"+jeegem.Object.notEmpty(l.layer)+"']").removeClass("hide");
+		$("#selectlayer button[value$='"+JEEGEM.Object.notEmpty(l.layer)+"']").removeClass("hide");
 	}
 	if(JEEGEM.Object.notNull(l.icon)){
 		$("#selecticonId").removeClass().addClass(l.icon+" bigger-120 ");
@@ -429,8 +429,8 @@ function selectIcon(){
 		buttons: [{html: "<i class='icon-ok bigger-110'></i>&nbsp;确定","class" : "btn btn-primary btn-xs",click: function() {		
 			var iconHidden=$("#iconHidden").val();
 			var colorHidden=$("#colorHidden").val();
-			$("#selecticonId").prop("class",jeegem.Object.notEmpty(iconHidden)+" "+jeegem.Object.notEmpty(colorHidden)+" bigger-120 ");
-			$("#auForm input[name$='icon']").val(JEEGEM.Object.notEmpty(iconHidden)+" "+jeegem.Object.notEmpty(colorHidden));		
+			$("#selecticonId").prop("class",JEEGEM.Object.notEmpty(iconHidden)+" "+JEEGEM.Object.notEmpty(colorHidden)+" bigger-120 ");
+			$("#auForm input[name$='icon']").val(JEEGEM.Object.notEmpty(iconHidden)+" "+JEEGEM.Object.notEmpty(colorHidden));		
 			$(this).dialog("close");	
 		     }},
 		   {html: "<i class='icon-remove bigger-110'></i>&nbsp;取消","class" : "btn btn-xs",click: function() {$(this).dialog("close");}}]

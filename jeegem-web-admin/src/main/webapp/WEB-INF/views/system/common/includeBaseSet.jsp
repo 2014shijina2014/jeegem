@@ -1,6 +1,6 @@
 ﻿<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<title>JEEGEM System</title>
+<title>JEEGEM</title>
 <c:set var="jeegempath" value="${pageContext.request.contextPath}"/>
 <script>
     var jeegempath = '${jeegempath}';

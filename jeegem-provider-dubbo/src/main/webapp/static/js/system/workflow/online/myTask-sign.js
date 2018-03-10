@@ -29,16 +29,16 @@ function getbaseList(init){
             		 html+="<tr>";
             		 html+="<td class='center'><label> <input type='checkbox' name='ids' value='"+l.id+"' class='ace' /> <span class='lbl'></span></label></td>";
             		 html+="<td class='center hidden-480'>"+(i+leng+1)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Object.notEmpty(l.id)+"</td>";
-            		 html+="<td class='center'>"+jeegem.Object.notEmpty(l.taskDefinitionKey)+"</td>";
-            		 html+="<td class='center'>"+jeegem.Object.notEmpty(l.name)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Object.notEmpty(l.processDefinitionId)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Object.notEmpty(l.processInstanceId)+"</td>";
-            		 /*html+="<td class='center hidden-480'>"+jeegem.Object.notEmpty(l.priority)+"</td>";*/
-            		 html+="<td class='center hidden-480'>"+jeegem.Date.Default(l.createTime)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Date.Default(l.dueDate)+"</td>";
-            		 html+="<td class='left hidden-480'>"+jeegem.Object.notEmpty(l.description)+"</td>";
-            		 html+="<td class='left hidden-480'>"+jeegem.Object.notEmpty(l.owner)+"</td>";     		 
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Object.notEmpty(l.id)+"</td>";
+            		 html+="<td class='center'>"+JEEGEM.Object.notEmpty(l.taskDefinitionKey)+"</td>";
+            		 html+="<td class='center'>"+JEEGEM.Object.notEmpty(l.name)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Object.notEmpty(l.processDefinitionId)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Object.notEmpty(l.processInstanceId)+"</td>";
+            		 /*html+="<td class='center hidden-480'>"+JEEGEM.Object.notEmpty(l.priority)+"</td>";*/
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Date.Default(l.createTime)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Date.Default(l.dueDate)+"</td>";
+            		 html+="<td class='left hidden-480'>"+JEEGEM.Object.notEmpty(l.description)+"</td>";
+            		 html+="<td class='left hidden-480'>"+JEEGEM.Object.notEmpty(l.owner)+"</td>";     		 
             		 html+="<td class='left'><button class='btn btn-xs btn-info'  onclick='claimTask(&apos;"+l.id+"&apos;)' ><i class='icon-pencil align-top bigger-125'></i>签收</button></td>";
             		 html+="</tr>";		 
             	 } 

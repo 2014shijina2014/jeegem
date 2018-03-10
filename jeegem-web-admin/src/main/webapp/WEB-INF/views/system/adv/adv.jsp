@@ -13,10 +13,11 @@
 <link rel="stylesheet" href="<c:url value='/static/css/system/ace/ace-rtl.min.css'/>" />
 <link rel="stylesheet" href="<c:url value='/static/css/system/ace/ace-skins.min.css'/>" />
 </head>
-<body style="background-color:#FFFFFF;">
+<body style="background-image: url('<c:url value='/static/images/system/intro.png'/>');">
 	<div class="center" style="margin:35px;" >
-		<img id="advImg" src="" />
-	<%-- 	<img src="<c:url value='/static/images/system/indexadv.png'/>" /> --%>
+	<%--	<img id="advImg" src="<c:url value='/static/images/system/indexadv.png'/>" />
+	 	<img src="<c:url value='/static/images/system/indexadv.png'/>" /> --%>
+		
 	</div>	
 	<script type="text/javascript">
 	if("ontouchend" in document) {

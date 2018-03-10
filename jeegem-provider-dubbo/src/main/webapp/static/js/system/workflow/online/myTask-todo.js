@@ -28,17 +28,17 @@ function getbaseList(init){
             		 html+="<tr>";
             		 html+="<td class='center'><label> <input type='checkbox' name='ids' value='"+l.id+"' class='ace' /> <span class='lbl'></span></label></td>";
             		 html+="<td class='center hidden-480'>"+(i+leng+1)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Object.notEmpty(l.id)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Object.notEmpty(l.id)+"</td>";
             		 var taskDKey=l.taskDefinitionKey;
-            		 html+="<td class='center'>"+jeegem.Object.notEmpty(taskDKey)+"</td>";
-            		 html+="<td class='center'>"+jeegem.Object.notEmpty(l.name)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Object.notEmpty(l.processDefinitionId)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Object.notEmpty(l.processInstanceId)+"</td>";
-            		 /*html+="<td class='center hidden-480'>"+jeegem.Object.notEmpty(l.priority)+"</td>";*/
-            		 html+="<td class='center hidden-480'>"+jeegem.Date.Default(l.createTime)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Date.Default(l.dueDate)+"</td>";
-            		 html+="<td class='left hidden-480'>"+jeegem.Object.notEmpty(l.description)+"</td>";
-            		 html+="<td class='left hidden-480'>"+jeegem.Object.notEmpty(l.owner)+"</td>";      
+            		 html+="<td class='center'>"+JEEGEM.Object.notEmpty(taskDKey)+"</td>";
+            		 html+="<td class='center'>"+JEEGEM.Object.notEmpty(l.name)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Object.notEmpty(l.processDefinitionId)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Object.notEmpty(l.processInstanceId)+"</td>";
+            		 /*html+="<td class='center hidden-480'>"+JEEGEM.Object.notEmpty(l.priority)+"</td>";*/
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Date.Default(l.createTime)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Date.Default(l.dueDate)+"</td>";
+            		 html+="<td class='left hidden-480'>"+JEEGEM.Object.notEmpty(l.description)+"</td>";
+            		 html+="<td class='left hidden-480'>"+JEEGEM.Object.notEmpty(l.owner)+"</td>";      
             		 if('deptAudit'==taskDKey||'hrAudit'==taskDKey){
             			 html+="<td class='left'><button class='btn btn-xs btn-success' onclick='todoTask(&apos;"+l.id+"&apos;,&apos;"+l.processInstanceId+"&apos;)' ><i class='icon-pencil align-top bigger-125'></i>办理</button></td>";
             		 }else{
@@ -86,7 +86,7 @@ function adjustTask(id,pId){
 			var that=$(this);
 			var vars =[{key:'reApply',value:false,type:'B'}];
 		              JEEGEM.Model.confirm("确认放弃吗？",function(){	
-			              JEEGEM.Ajax.doRequest("",jeegempath +'/backstage/workflow/online/myTask/complete/'+id,jeegem.Object.comVar(vars),function(data){
+			              JEEGEM.Ajax.doRequest("",jeegempath +'/backstage/workflow/online/myTask/complete/'+id,JEEGEM.Object.comVar(vars),function(data){
 				              JEEGEM.Model.info(data.resMsg,function(){search();that.dialog("close");});
 				});
 			});
@@ -104,7 +104,7 @@ function todoTask(id,pId){
 			var that=$(this);
 		              JEEGEM.Model.confirm("确认同意吗？",function(){	
 				var vars =[{key:'auditPass',value:true,type:'B'}];
-			              JEEGEM.Ajax.doRequest("",jeegempath +'/backstage/workflow/online/myTask/complete/'+id,jeegem.Object.comVar(vars),function(data){
+			              JEEGEM.Ajax.doRequest("",jeegempath +'/backstage/workflow/online/myTask/complete/'+id,JEEGEM.Object.comVar(vars),function(data){
 				              JEEGEM.Model.info(data.resMsg,function(){search();that.dialog("close");});
 				});
 			});

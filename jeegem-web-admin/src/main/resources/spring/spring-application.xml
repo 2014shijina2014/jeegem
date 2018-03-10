@@ -15,6 +15,9 @@
 
     <description>Spring Configuration</description>
     
+	<!-- 读取数据库配置文件 -->
+	<context:property-placeholder ignore-unresolvable="true" location="classpath:stencilset.json" />    
+    
     <!-- 启用注解 -->
 	<context:annotation-config />
 	

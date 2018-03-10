@@ -251,13 +251,13 @@ function getbaseList(init){
             		 html+="<tr>";
             		 html+="<td class='center'><label> <input type='checkbox' name='ids' value='"+l.id+"' class='ace' /> <span class='lbl'></span></label></td>";
             		 html+="<td class='center hidden-480'>"+(i+leng+1)+"</td>";
-            		 html+="<td class='center'>"+jeegem.Object.notEmpty(l.name)+"</td>";
+            		 html+="<td class='center'>"+JEEGEM.Object.notEmpty(l.name)+"</td>";
             		 if(l.isValid==1){
             			 html+="<td class='center hidden-480'><span class='label label-sm label-success'>有效</span></td>";
             		 }else{
             			 html+="<td class='center hidden-480'><span class='label label-sm arrowed-in'>无效</span></td>";
             		 } 
-            		 html+="<td class='center hidden-480'>"+jeegem.Object.notEmpty(l.description)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Object.notEmpty(l.description)+"</td>";
             		 html+=JEEGEM.Tags.setFunction(l.id,permitBtn);
             		 html+="</tr>";		 
             	 } 

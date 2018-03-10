@@ -86,10 +86,10 @@ function getbaseList(init){
             		 html+="<div class='message-item message-unread'>";
             		 html+="<label class='inline'><input type='checkbox' class='ace'> <span class='lbl'></span></label>";
             		 html+="<i class='message-star icon-twitter orange2'></i>";
-            		 html+="<span title='"+jeegem.Object.notEmpty(l.toList)+"' class='sender'>"+jeegem.Object.notEmpty(l.toList)+"</span>";
+            		 html+="<span title='"+JEEGEM.Object.notEmpty(l.toList)+"' class='sender'>"+JEEGEM.Object.notEmpty(l.toList)+"</span>";
             		 html+="<span class='time'>"+comtime(l.createTime)+"</span>";
             		 html+="<span class='summary'>";
-            		 html+="<span class='text'>"+jeegem.Object.notEmpty(l.subject)+"</span>";  
+            		 html+="<span class='text'>"+JEEGEM.Object.notEmpty(l.subject)+"</span>";  
             		 html+="</div>";  
             	 } 
         		 $("#sentTable").append(html);

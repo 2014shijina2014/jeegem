@@ -44,18 +44,18 @@ function getbaseList(init){
             		 html+="<tr>";
             		 html+="<td class='center'><label> <input type='checkbox' name='ids' value='"+l.openid+"' class='ace' /> <span class='lbl'></span></label></td>";
             		 html+="<td class='center hidden-480'>"+(i+leng+1)+"</td>";          		 
-            		 html+="<td class='center'><img width='30' height='30' src='"+jeegem.Object.notEmpty(l.headimgurl)+"' ></td>";
-            		 html+="<td class='center'>"+jeegem.Object.notEmpty(l.nickname)+"</td>";
+            		 html+="<td class='center'><img width='30' height='30' src='"+JEEGEM.Object.notEmpty(l.headimgurl)+"' ></td>";
+            		 html+="<td class='center'>"+JEEGEM.Object.notEmpty(l.nickname)+"</td>";
             		 var sex="未知";if(l.sex==1)sex="男";else if(l.sex==2)sex="女";
             		 html+="<td class='center hidden-480' >"+sex+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Object.notEmpty(l.country)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Object.notEmpty(l.province)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Object.notEmpty(l.city)+"</td>";   
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Object.notEmpty(l.country)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Object.notEmpty(l.province)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Object.notEmpty(l.city)+"</td>";   
             		 if(l.subscribe==1) html+="<td class='center hidden-480'><span class='label label-sm label-success'>订阅</span></td>";
             		 else if(l.subscribe==0)html+="<td class='center hidden-480'><span class='label label-sm arrowed-in'>退订</span></td>";
             		 else             html+="<td class='center hidden-480'><span class='label label-danger label-sm arrowed-in'>未知</span></td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Date.Default(l.subscribeTime)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Object.notEmpty(l.remark)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Date.Default(l.subscribeTime)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Object.notEmpty(l.remark)+"</td>";
             		 html+=JEEGEM.Tags.setFunction(l.openid,permitBtn);
             		 html+="</tr>";		 
             	 } 

@@ -29,12 +29,12 @@ function getbaseList(init){
             		 html+="<tr>";
             		 html+="<td class='center'><label> <input type='checkbox' name='ids' value='"+l.id+"' class='ace' /> <span class='lbl'></span></label></td>";
             		 html+="<td class='center hidden-480'>"+(i+leng+1)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Object.notEmpty(l.id)+"</td>";
-            		 html+="<td class='center'>"+jeegem.Object.notEmpty(l.processInstanceId)+"</td>";
-            		 html+="<td class='center'>"+jeegem.Object.notEmpty(l.processDefinitionId)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Object.notEmpty(l.id)+"</td>";
+            		 html+="<td class='center'>"+JEEGEM.Object.notEmpty(l.processInstanceId)+"</td>";
+            		 html+="<td class='center'>"+JEEGEM.Object.notEmpty(l.processDefinitionId)+"</td>";
             		 var task=l.task;
             		 if(JEEGEM.Object.notNull(task)){
-            			 html+="<td class='center'><a href='javascritp:void(0);' onclick='currentNode(&apos;"+l.processDefinitionId+"&apos;,&apos;"+l.processInstanceId+"&apos;);return false' >"+jeegem.Object.notEmpty(task.name)+"</a></td>";
+            			 html+="<td class='center'><a href='javascritp:void(0);' onclick='currentNode(&apos;"+l.processDefinitionId+"&apos;,&apos;"+l.processInstanceId+"&apos;);return false' >"+JEEGEM.Object.notEmpty(task.name)+"</a></td>";
             		 }else{
             			 html+="<td class='center'></td>";
             		 }  	

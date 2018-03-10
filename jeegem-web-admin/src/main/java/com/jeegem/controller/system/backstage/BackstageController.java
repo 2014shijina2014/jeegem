@@ -83,6 +83,11 @@ public class BackstageController extends BaseController<Object>{
 		return "/system/adv/adv";
 	}
 	
+	@RequestMapping("aboutus")
+	public String aboutus(Model model) {	
+		return "/system/account/aboutus";
+	}
+	
 	@RequestMapping("404")
 	public String errorlistUI(Model model){	
 		return "/system/error/404";

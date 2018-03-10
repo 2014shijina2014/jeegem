@@ -48,16 +48,16 @@ function getbaseList(init){
             		 html+="<tr>";
             		 html+="<td class='center'><label> <input type='checkbox' name='ids' value='"+l.scheduleJobId+"' class='ace' /> <span class='lbl'></span></label></td>";
             		 html+="<td class='center hidden-480'>"+(i+leng+1)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Object.notEmpty(l.jobName)+"</td>";
-            		 html+="<td class='center'>"+jeegem.Object.notEmpty(l.aliasName)+"</td>";
-            		 html+="<td class='center hidden-480' >"+jeegem.Object.notEmpty(l.jobGroup)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Object.notEmpty(l.jobClass)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Object.notEmpty(l.jobName)+"</td>";
+            		 html+="<td class='center'>"+JEEGEM.Object.notEmpty(l.aliasName)+"</td>";
+            		 html+="<td class='center hidden-480' >"+JEEGEM.Object.notEmpty(l.jobGroup)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Object.notEmpty(l.jobClass)+"</td>";
             		 if(l.status==1) html+="<td class='center'><span class='label label-sm label-success'>启用</span></td>";
             		 else             html+="<td class='center'><span class='label label-sm arrowed-in'>停用</span></td>"; 	
-            		 html+="<td class='center hidden-480'>"+jeegem.Object.notEmpty(l.cronExpression)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Object.notEmpty(l.description)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Date.Default(l.createTime)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Date.Default(l.updateTime)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Object.notEmpty(l.cronExpression)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Object.notEmpty(l.description)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Date.Default(l.createTime)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Date.Default(l.updateTime)+"</td>";
             		 html+=JEEGEM.Tags.setFunction(l.scheduleJobId,permitBtn);
             		 html+="</tr>";		 
             	 } 

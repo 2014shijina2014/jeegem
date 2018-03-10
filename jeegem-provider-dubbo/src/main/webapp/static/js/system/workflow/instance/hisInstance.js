@@ -28,11 +28,11 @@ function getbaseList(init){
             		 html+="<tr>";
             		 html+="<td class='center'><label> <input type='checkbox' name='ids' value='"+l.id+"' class='ace' /> <span class='lbl'></span></label></td>";
             		 html+="<td class='center hidden-480'>"+(i+leng+1)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Object.notEmpty(l.id)+"</td>";
-            		 html+="<td class='center'>"+jeegem.Object.notEmpty(l.processDefinitionId)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Date.Default(l.startTime)+"</td>";
-            		 html+="<td class='center hidden-480'>"+jeegem.Date.Default(l.endTime)+"</td>";
-            		 html+="<td class='center'>"+jeegem.Object.notEmpty(l.deleteReason)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Object.notEmpty(l.id)+"</td>";
+            		 html+="<td class='center'>"+JEEGEM.Object.notEmpty(l.processDefinitionId)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Date.Default(l.startTime)+"</td>";
+            		 html+="<td class='center hidden-480'>"+JEEGEM.Date.Default(l.endTime)+"</td>";
+            		 html+="<td class='center'>"+JEEGEM.Object.notEmpty(l.deleteReason)+"</td>";
             		 html+="</tr>";		 
             	 } 
         		 $("#baseTable tbody").append(html);

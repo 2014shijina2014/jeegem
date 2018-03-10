@@ -26,6 +26,12 @@
 			<scope>test</scope>
 		</dependency>
 		<!-- activiti start -->
+		
+		<dependency>
+			<groupId>org.activiti</groupId>
+			<artifactId>activiti-modeler</artifactId>
+			<version>5.19.0</version>
+		</dependency>
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-bpmn-converter</artifactId>
@@ -106,11 +112,7 @@
 			<artifactId>activiti-ldap</artifactId>
 			<version>5.19.0</version>
 		</dependency>
-		<dependency>
-			<groupId>org.activiti</groupId>
-			<artifactId>activiti-modeler</artifactId>
-			<version>5.19.0</version>
-		</dependency>
+		
 		<dependency>
 			<groupId>org.activiti</groupId>
 			<artifactId>activiti-osgi</artifactId>
@@ -638,6 +640,7 @@
 					<include>**/*.properties</include>
 					<include>**/*.xml</include>
 					<include>**/*.ini</include>
+					<include>**/*.json</include>
 				</includes>
 				<filtering>false</filtering>
 			</resource>
@@ -646,6 +649,7 @@
 				<includes>
 					<include>**/*.properties</include>
 					<include>**/*.xml</include>
+					<include>**/*.json</include>
 				</includes>
 				<filtering>false</filtering>
 			</resource>
